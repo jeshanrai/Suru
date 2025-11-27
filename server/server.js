@@ -11,14 +11,18 @@ connectDB();
 const app = express();
 const server = http.createServer(app);
 
-// Middleware
-app.use(cors());
+// 👉 Correct CORS middleware
+app.use(cors({
+    origin: ["http://192.168.1.72:5173", "http://localhost:5173"],
+    methods: ["GET", "POST"]
+}));
+
 app.use(express.json());
 
-// Socket.io Setup
+// 👉 Correct Socket.io CORS config
 const io = new Server(server, {
     cors: {
-        origin: "http://localhost:5173", // Vite default port
+        origin: ["http://192.168.1.72:5173", "http://localhost:5173"],
         methods: ["GET", "POST"]
     }
 });
@@ -29,6 +33,11 @@ io.on('connection', (socket) => {
     socket.on('join_chat', (data) => {
         socket.join(data);
         console.log(`User with ID: ${socket.id} joined room: ${data}`);
+    });
+
+    socket.on('leave_chat', (data) => {
+        socket.leave(data);
+        console.log(`User with ID: ${socket.id} left room: ${data}`);
     });
 
     socket.on('send_message', (data) => {

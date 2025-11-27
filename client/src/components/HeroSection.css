@@ -1,6 +1,6 @@
 .hero-section {
     position: relative;
-    padding-top: 6rem;
+    padding-top: 17rem !important;
     /* pt-24 */
     padding-bottom: 8rem;
     /* pb-32 */
@@ -107,6 +107,8 @@
         /* sm:space-x-6 */
     }
 }
+
+
 
 .hero-button-primary {
     width: 100%;

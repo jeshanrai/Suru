@@ -12,7 +12,7 @@ import TESTIMONIALS_DATA from "../data/TESTIMONIALS_DATA";
 const Home = () => {
     return (
         <>
-            <div className="tailwind">
+            <div className="home">
                 <HeroSection />
                 <MetricsSection metrics={METRICS} />
                 <UserPathSection />

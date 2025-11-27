@@ -3,6 +3,7 @@ import api from '../utils/api';
 import StartupCard from '../components/StartupCard';
 import { Search, Filter } from 'lucide-react';
 import './StartupList.css';
+import Loading from '../components/Loading';
 
 const StartupList = () => {
     const [startups, setStartups] = useState([]);
@@ -18,6 +19,7 @@ const StartupList = () => {
     }, [filters]);
 
     const fetchStartups = async () => {
+        setLoading(true); // Ensure loading shows every time fetch starts
         try {
             const params = new URLSearchParams();
             if (filters.search) params.append('search', filters.search);
@@ -26,10 +28,11 @@ const StartupList = () => {
 
             const { data } = await api.get(`/startups?${params.toString()}`);
             setStartups(data);
-            setLoading(false);
         } catch (error) {
             console.error('Error fetching startups:', error);
-            setLoading(false);
+            setStartups([]); // Clear startups if error occurs
+        } finally {
+            setLoading(false); // Stop loading after fetch completes
         }
     };
 
@@ -70,16 +73,14 @@ const StartupList = () => {
             </div>
 
             {loading ? (
-                <div className="loading">Loading...</div>
-            ) : (
+                <Loading />
+            ) : startups.length > 0 ? (
                 <div className="startups-grid">
                     {startups.map((startup) => (
                         <StartupCard key={startup._id} startup={startup} />
                     ))}
                 </div>
-            )}
-
-            {!loading && startups.length === 0 && (
+            ) : (
                 <div className="no-results">
                     <h3>No startups found</h3>
                     <p>Try adjusting your filters</p>

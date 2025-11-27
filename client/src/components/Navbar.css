@@ -2,7 +2,8 @@
     background-color: var(--bg-card);
     border-bottom: 1px solid var(--border);
     padding: 1rem 0;
-    position: sticky;
+    position: fixed;
+    width: 100%;
     top: 0;
     z-index: 100;
 }

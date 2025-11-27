@@ -44,7 +44,14 @@ const getStartupApplications = async (req, res) => {
 // @access  Private
 const getMyApplications = async (req, res) => {
     const applications = await Application.find({ applicant: req.user._id })
-        .populate('startup', 'title category');
+        .populate({
+            path: 'startup',
+            select: 'title category founder',
+            populate: {
+                path: 'founder',
+                select: 'name email profileImage'
+            }
+        });
     res.json(applications);
 };
 

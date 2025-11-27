@@ -3,7 +3,7 @@ import { useSearchParams, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import api from '../utils/api';
 import io from 'socket.io-client';
-import { Send, Search, User } from 'lucide-react';
+import { Send, Search, User, ArrowLeft } from 'lucide-react';
 import './Chat.css';
 
 const Chat = () => {
@@ -23,7 +23,8 @@ const Chat = () => {
 
     useEffect(() => {
         // Initialize socket connection
-        const newSocket = io('http://localhost:5000');
+        const SOCKET_URL = import.meta.env.VITE_API_URL ? import.meta.env.VITE_API_URL.replace('/api', '') : 'http://localhost:5000';
+        const newSocket = io(SOCKET_URL);
         setSocket(newSocket);
 
         return () => newSocket.close();
@@ -53,6 +54,7 @@ const Chat = () => {
             });
 
             return () => {
+                socket.emit('leave_chat', roomId);
                 socket.off('receive_message');
             };
         }
@@ -69,11 +71,15 @@ const Chat = () => {
             const acceptedApps = myApps.filter(app => app.status === 'accepted');
 
             // Get unique users from accepted applications
-            const conversationUsers = acceptedApps.map(app => ({
-                _id: app.startup?.founder,
-                name: 'Founder', // Will be updated when we fetch user details
-                role: 'founder'
-            }));
+            const conversationUsers = acceptedApps.map(app => {
+                const founder = app.startup?.founder;
+                return {
+                    _id: founder?._id,
+                    name: founder?.name || 'Founder',
+                    role: 'founder',
+                    profileImage: founder?.profileImage
+                };
+            });
 
             // If user is founder, get accepted applicants
             if (user.role === 'founder') {
@@ -147,6 +153,10 @@ const Chat = () => {
         navigate(`/chat?user=${userId}`);
     };
 
+    const handleBackToConversations = () => {
+        navigate('/chat');
+    };
+
     const filteredConversations = conversations.filter(conv =>
         conv.name?.toLowerCase().includes(searchQuery.toLowerCase())
     );
@@ -154,7 +164,7 @@ const Chat = () => {
     return (
         <div className="chat-page">
             {/* Sidebar */}
-            <div className="chat-sidebar">
+            <div className={`chat-sidebar ${selectedUserId ? 'mobile-hidden' : 'mobile-show'}`}>
                 <div className="sidebar-header">
                     <h2>Messages</h2>
                 </div>
@@ -196,10 +206,16 @@ const Chat = () => {
             </div>
 
             {/* Chat Area */}
-            <div className="chat-area">
+            <div className={`chat-area ${!selectedUserId ? 'mobile-hidden' : 'mobile-show'}`}>
                 {selectedUser ? (
                     <>
                         <div className="chat-header">
+                            <button
+                                className="back-btn mobile-only"
+                                onClick={handleBackToConversations}
+                            >
+                                <ArrowLeft size={24} />
+                            </button>
                             <div className="chat-user-info">
                                 <div className="chat-avatar">
                                     {selectedUser.name?.charAt(0).toUpperCase()}

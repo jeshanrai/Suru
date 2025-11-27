@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import api from '../utils/api';
 import { AuthContext } from '../context/AuthContext';
 import { MapPin, DollarSign, Calendar, User, CheckCircle } from 'lucide-react';
+import Loading from '../components/Loading';
 import './StartupDetail.css';
 
 const StartupDetail = () => {
@@ -21,12 +22,14 @@ const StartupDetail = () => {
     }, [id]);
 
     const fetchStartup = async () => {
+        setLoading(true);
         try {
             const { data } = await api.get(`/startups/${id}`);
             setStartup(data);
-            setLoading(false);
-        } catch (error) {
-            console.error('Error fetching startup:', error);
+        } catch (err) {
+            console.error('Error fetching startup:', err);
+            setStartup(null);
+        } finally {
             setLoading(false);
         }
     };
@@ -38,6 +41,7 @@ const StartupDetail = () => {
             return;
         }
 
+        setError('');
         try {
             await api.post('/applications', { startupId: id, message });
             setSuccess(true);
@@ -47,7 +51,8 @@ const StartupDetail = () => {
         }
     };
 
-    if (loading) return <div className="loading">Loading...</div>;
+    if (loading) return <Loading />;
+
     if (!startup) return <div className="no-results">Startup not found</div>;
 
     return (
@@ -124,8 +129,16 @@ const StartupDetail = () => {
                                 />
                                 {error && <div className="error-text">{error}</div>}
                                 <div className="button-group">
-                                    <button type="button" className="btn btn-outline" onClick={() => setApplying(false)}>Cancel</button>
-                                    <button type="submit" className="btn btn-primary">Send Application</button>
+                                    <button
+                                        type="button"
+                                        className="btn btn-outline"
+                                        onClick={() => setApplying(false)}
+                                    >
+                                        Cancel
+                                    </button>
+                                    <button type="submit" className="btn btn-primary">
+                                        Send Application
+                                    </button>
                                 </div>
                             </form>
                         ) : (

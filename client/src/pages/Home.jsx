@@ -1,17 +1,26 @@
-import React from 'react';
+import React from "react";
+import HeroSection from "../components/HeroSection";
+import MetricsSection from "../components/MetricsSection";
+import UserPathSection from "../components/UserPathSection";
+import FeaturesSection from "../components/FeaturesSection";
+import TestimonialsSection from "../components/TestimonialsSection";
+import CtaSection from "../components/CtaSection";
+import METRICS from "../data/METRICS_DATA";
+import FEATURES_DATA from "../data/FEATURES_DATA";
+import TESTIMONIALS_DATA from "../data/TESTIMONIALS_DATA";
 
 const Home = () => {
     return (
-        <div className="container" style={{ padding: '4rem 0', textAlign: 'center' }}>
-            <h1>Find the Perfect Partner to Build Your Dream Startup</h1>
-            <p style={{ margin: '1rem 0 2rem', fontSize: '1.2rem', color: 'var(--text-light)' }}>
-                Connect with founders, investors, and skilled professionals.
-            </p>
-            <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
-                <a href="/register" className="btn btn-primary">Post Your Startup</a>
-                <a href="/startups" className="btn btn-outline">Find a Startup</a>
+        <>
+            <div className="tailwind">
+                <HeroSection />
+                <MetricsSection metrics={METRICS} />
+                <UserPathSection />
+                <FeaturesSection features={FEATURES_DATA} />
+                <TestimonialsSection testimonials={TESTIMONIALS_DATA} />
+                <CtaSection />
             </div>
-        </div>
+        </>
     );
 };
 

@@ -18,7 +18,8 @@ const Navbar = () => {
         <nav className="navbar">
             <div className="container navbar-container">
                 <Link to="/" className="navbar-logo">
-                    StartUp<span>Connect</span>
+                    <img src="/images/web_logo.png" alt="StartUp Connect" className="logo-image" />
+                    <span className="logo-text">StartUp<span className="logo-highlight">Connect</span></span>
                 </Link>
 
                 <div className="mobile-menu-btn" onClick={() => setIsOpen(!isOpen)}>

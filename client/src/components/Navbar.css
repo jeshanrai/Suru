@@ -14,13 +14,28 @@
 }
 
 .navbar-logo {
-    font-family: var(--font-heading);
-    font-weight: 700;
     font-size: 1.5rem;
-    color: var(--primary);
+    font-weight: 700;
+    color: var(--text-main);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
-.navbar-logo span {
+.logo-image {
+    height: 50px;
+    width: auto;
+    object-fit: contain;
+}
+
+.logo-text {
+    display: flex;
+    align-items: center;
+    font-family: var(--font-heading);
+}
+
+.logo-highlight {
     color: var(--accent);
 }
 
@@ -61,6 +76,14 @@
 @media (max-width: 768px) {
     .mobile-menu-btn {
         display: block;
+    }
+
+    .logo-text {
+        font-size: 1.2rem;
+    }
+
+    .logo-image {
+        height: 35px;
     }
 
     .navbar-links {

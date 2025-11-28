@@ -5,7 +5,6 @@ import { Edit2, Save, X, Plus, Trash2, Camera } from 'lucide-react';
 import './Profile.css';
 
 const Profile = () => {
-    // Assuming AuthContext has 'user' and an 'updateUser' function (for ideal UX)
     const { user, updateUser, logout } = useContext(AuthContext);
     const [isEditing, setIsEditing] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -20,7 +19,6 @@ const Profile = () => {
     });
     const [newSkill, setNewSkill] = useState('');
     const [newPortfolio, setNewPortfolio] = useState({ title: '', link: '' });
-    const [newPictureFile, setNewPictureFile] = useState(null);
     const fileInputRef = useRef(null);
 
     // --- 1. Initialization and Data Sync ---
@@ -42,11 +40,37 @@ const Profile = () => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
-    const handlePictureChange = (e) => {
+    const convertToBase64 = (file) => {
+        return new Promise((resolve, reject) => {
+            const fileReader = new FileReader();
+            fileReader.readAsDataURL(file);
+            fileReader.onload = () => {
+                resolve(fileReader.result);
+            };
+            fileReader.onerror = (error) => {
+                reject(error);
+            };
+        });
+    };
+
+    const handlePictureChange = async (e) => {
         if (e.target.files && e.target.files[0]) {
-            setNewPictureFile(e.target.files[0]);
-            // Create a temporary URL for immediate preview
-            setFormData({ ...formData, profilePicture: URL.createObjectURL(e.target.files[0]) });
+            const file = e.target.files[0];
+
+            // Limit file size to 5MB to avoid payload issues
+            if (file.size > 5 * 1024 * 1024) {
+                setError("Image size too large. Please choose an image under 5MB.");
+                return;
+            }
+
+            try {
+                const base64 = await convertToBase64(file);
+                setFormData({ ...formData, profilePicture: base64 });
+                setError(null);
+            } catch (err) {
+                console.error("Error converting to base64", err);
+                setError("Failed to load image. Please try another one.");
+            }
         }
     };
 
@@ -92,36 +116,19 @@ const Profile = () => {
         setError(null);
 
         const updateData = { ...formData };
+        console.log(updateData);
         delete updateData.email;
 
         try {
-            let pictureUrl = formData.profilePicture;
-
-            // Handle Picture Upload
-            if (newPictureFile) {
-                const uploadFormData = new FormData();
-                uploadFormData.append('profilePicture', newPictureFile);
-
-                // Placeholder for actual image upload API call
-                const uploadResponse = await api.post('/upload/profile-picture', uploadFormData, {
-                    headers: { 'Content-Type': 'multipart/form-data' }
-                });
-                pictureUrl = uploadResponse.data.url;
-                updateData.profilePicture = pictureUrl;
-            }
-
-            // Update Text Data
+            // Update profile data (including profilePicture as base64)
             const { data } = await api.put(`/users/${user._id}`, updateData);
 
             // Update User Context/Local Storage
-            const updatedUserData = { ...user, ...data, profilePicture: pictureUrl };
-            // If updateUser exists in AuthContext: updateUser(updatedUserData);
-            localStorage.setItem('userInfo', JSON.stringify(updatedUserData));
+            const updatedUserData = { ...user, ...data };
+            updateUser(updatedUserData);
 
             setIsEditing(false);
-            setNewPictureFile(null);
             alert('Profile updated successfully!');
-            window.location.reload(); // Reload to ensure context update
         } catch (err) {
             console.error('Error updating profile:', err);
             setError('Failed to update profile. Please ensure all fields are valid and try again.');
@@ -131,16 +138,14 @@ const Profile = () => {
     };
 
     const handleCancel = () => {
-        // Reset form data to the original user data
         setFormData({
             name: user.name || '',
             email: user.email || '',
             bio: user.bio || '',
             skills: user.skills || [],
-            portfolio: user.portfolio || [],
+            portfolio: user.portfolio || '',
             profilePicture: user.profilePicture || ''
         });
-        setNewPictureFile(null);
         setIsEditing(false);
         setError(null);
     };
@@ -148,11 +153,7 @@ const Profile = () => {
     // --- 4. Rendering Logic ---
     if (!user) return <div className="loading">Loading...</div>;
 
-    // Determine the profile picture source and avatar content
-    const avatarSrc = formData.profilePicture && formData.profilePicture.startsWith('http')
-        ? formData.profilePicture
-        : (user.profilePicture || null);
-
+    const avatarSrc = formData.profilePicture || user.profilePicture || null;
     const avatarContent = avatarSrc
         ? <img src={avatarSrc} alt="Profile" className="profile-image" />
         : <span className="avatar-initials">{user.name?.charAt(0).toUpperCase()}</span>;
@@ -196,10 +197,7 @@ const Profile = () => {
                 {/* Profile Content (View or Edit) */}
                 {isEditing ? (
                     <form onSubmit={handleSubmit} className="profile-edit-form">
-
-                        {/* Grid Container for Two-Column Layout on Desktop */}
                         <div className="profile-content-grid">
-
                             {/* LEFT COLUMN: Basic Information */}
                             <div className="main-info-column">
                                 <div className="card profile-section-edit">
@@ -317,7 +315,7 @@ const Profile = () => {
                             </div>
                         </div>
 
-                        {/* Form Actions (Fixed/Sticky at bottom of viewport) */}
+                        {/* Form Actions */}
                         <div className="form-actions-sticky">
                             <button type="button" onClick={handleCancel} className="btn btn-outline-danger">
                                 <X size={18} /> Cancel
@@ -327,10 +325,9 @@ const Profile = () => {
                             </button>
                         </div>
                     </form>
-
                 ) : (
                     <>
-                        {/* View Mode Sections (Unchanged) */}
+                        {/* View Mode Sections */}
                         <div className="card profile-section-view">
                             <h2 className="section-title">About Me 📖</h2>
                             <p className="profile-bio-text">{user.bio || 'No bio added yet. Click "Edit Profile" to add one.'}</p>
@@ -373,4 +370,4 @@ const Profile = () => {
     );
 };
 
-export default Profile;
+export default Profile; 

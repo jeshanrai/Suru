@@ -3,7 +3,11 @@ const { getUserById, updateUserProfile } = require('../controllers/userControlle
 const { protect } = require('../middlewares/authMiddleware');
 const router = express.Router();
 
+// GET user by ID
 router.get('/:id', protect, getUserById);
+
+// PUT update profile
+// You can now use the URL with the user ID, but only logged-in user can update their profile
 router.put('/:id', protect, updateUserProfile);
 
 module.exports = router;

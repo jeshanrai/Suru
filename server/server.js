@@ -10,14 +10,14 @@ connectDB();
 
 const app = express();
 const server = http.createServer(app);
-
-// 👉 Correct CORS middleware
 app.use(cors({
     origin: ["http://192.168.1.72:5173", "http://localhost:5173"],
-    methods: ["GET", "POST"]
+    // 💡 FIX HERE: Added "PUT", "PATCH", and "DELETE"
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH"]
 }));
 
-app.use(express.json());
+app.use(express.json({ limit: '50mb' }));
+app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
 // 👉 Correct Socket.io CORS config
 const io = new Server(server, {

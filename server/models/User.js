@@ -6,20 +6,20 @@ const userSchema = mongoose.Schema({
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     role: { type: String, enum: ['founder', 'partner'], default: 'partner' },
-    bio: { type: String },
-    skills: [{ type: String }],
+    bio: { type: String, default: '' },
+    skills: [{ type: String, default: [] }],
     profilePicture: { type: String, default: '' },
-    portfolio: [{ title: String, link: String }],
+    portfolio: [{ title: { type: String, default: '' }, link: { type: String, default: '' } }],
 }, { timestamps: true });
 
+// Compare password
 userSchema.methods.matchPassword = async function (enteredPassword) {
     return await bcrypt.compare(enteredPassword, this.password);
 };
 
-userSchema.pre('save', async function (next) {
-    if (!this.isModified('password')) {
-        next();
-    }
+// Pre-save hook to hash password
+userSchema.pre('save', async function () {
+    if (!this.isModified('password')) return;
     const salt = await bcrypt.genSalt(10);
     this.password = await bcrypt.hash(this.password, salt);
 });

@@ -1,22 +1,23 @@
 import { Rocket } from "lucide-react";
 import "./CtaSection.css";
+import { Link } from "react-router-dom";
 
 const CtaSection = () => {
     return (
         <section className="cta-section">
             <div className="cta-container">
                 <h2 className="cta-heading">
-                    Ready to find your competitive edge?
+                    Ready to build the future?
                 </h2>
                 <p className="cta-subtext">
-                    Join thousands of validated founders and investors building the future.
-                    Your next co-founder is waiting.
+                    Join thousands of vetted founders and investors building the next generation of startups.
+                    Your dream team is waiting.
                 </p>
                 <div className="cta-button-wrapper">
-                    <a href="#" className="cta-button">
-                        Launch Your Profile
+                    <Link to="register" className="cta-button">
+                        Get Started Now
                         <Rocket className="cta-rocket" />
-                    </a>
+                    </Link>
                 </div>
             </div>
         </section>

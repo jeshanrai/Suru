@@ -1,4 +1,5 @@
 import { Rocket, Briefcase } from "lucide-react";
+import { Link } from "react-router-dom";
 import "./UserPathSection.css";
 
 const UserPathSection = () => {
@@ -18,11 +19,11 @@ const UserPathSection = () => {
                             </h3>
                         </div>
                         <p className="user-path-card-text">
-                            Stop looking for generic help. Find highly vetted, skill-matched co-founders and early employees ready to commit to your vision and scale your MVP into a market leader.
+                            Stop settling for generic hires. Find highly vetted, skill-matched co-founders and early employees who are ready to commit to your vision and scale your startup.
                         </p>
-                        <a href="#" className="user-path-card-button founders-button">
-                            Share Your Startup Idea
-                        </a>
+                        <Link to="register" className="user-path-card-button founders-button">
+                            Build Your Dream Team
+                        </Link>
                     </div>
 
                     {/* Path 2: Joiners/Talent */}
@@ -30,15 +31,15 @@ const UserPathSection = () => {
                         <div className="user-path-card-header">
                             <Briefcase className="user-path-icon joiners-icon" />
                             <h3 className="user-path-card-title">
-                                For Skilled Joiners & Talent
+                                For Skilled Talent
                             </h3>
                         </div>
                         <p className="user-path-card-text">
-                            Skip the job boards. Discover high-potential, funded, and early-stage startups that need your specific expertise. Find meaningful equity and purpose in the next big thing.
+                            Skip the traditional job boards. Discover high-potential, funded, and early-stage startups that need your specific expertise. Find meaningful equity and purpose.
                         </p>
-                        <a href="#" className="user-path-card-button joiners-button">
-                            Find a Startup to Join
-                        </a>
+                        < Link to="browse-startups" className="user-path-card-button joiners-button">
+                            Find Your Next Role
+                        </Link>
                     </div>
                 </div>
             </div>

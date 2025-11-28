@@ -7,22 +7,22 @@ const AboutUs = () => {
         {
             icon: <Target size={32} />,
             title: 'Our Mission',
-            description: 'To bridge the gap between innovative startups and talented individuals, creating opportunities for growth and collaboration.'
+            description: 'To bridge the gap between innovative startups and talented individuals, creating opportunities for exponential growth.'
         },
         {
             icon: <Users size={32} />,
             title: 'Community First',
-            description: 'We believe in building a strong community where entrepreneurs and professionals can connect, learn, and grow together.'
+            description: 'We believe in building a strong ecosystem where entrepreneurs and professionals can connect, learn, and build together.'
         },
         {
             icon: <Lightbulb size={32} />,
             title: 'Innovation',
-            description: 'We foster creativity and innovation by connecting forward-thinking startups with passionate individuals.'
+            description: 'We foster creativity and innovation by connecting forward-thinking startups with passionate, skilled individuals.'
         },
         {
             icon: <Rocket size={32} />,
             title: 'Growth',
-            description: 'We are committed to helping both startups and individuals achieve their full potential through meaningful connections.'
+            description: 'We are committed to helping both startups and individuals achieve their full potential through strategic connections.'
         }
     ];
 
@@ -40,14 +40,14 @@ const AboutUs = () => {
                     <div className="about-us-story">
                         <h3>Our Story</h3>
                         <p>
-                            StartupConnect was born from a simple observation: talented individuals and
-                            innovative startups often struggle to find each other. We created a platform
-                            that makes these connections seamless, meaningful, and impactful.
+                            StartupConnect was born from a simple observation: great ideas die without the right team.
+                            We realized that talented individuals and innovative startups often struggle to find each other in a noisy market.
+                            We created a platform that cuts through the noise to make connections seamless, meaningful, and impactful.
                         </p>
                         <p>
-                            Whether you're a startup looking for your next team member or a professional
-                            seeking exciting opportunities in the startup ecosystem, StartupConnect is
-                            your gateway to endless possibilities.
+                            Whether you're a visionary founder looking for your technical counterpart or a skilled professional
+                            seeking equity and purpose in the startup ecosystem, StartupConnect is
+                            your gateway to building the next big thing.
                         </p>
                     </div>
 

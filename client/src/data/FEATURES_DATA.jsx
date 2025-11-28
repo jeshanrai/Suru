@@ -3,23 +3,23 @@ import { Users, Handshake, Sparkles, Target } from 'lucide-react';
 export const FEATURES_DATA = [
     {
         icon: Users,
-        title: 'Vetted Co-Founder Matching',
-        description: 'Advanced behavioral and skill-set matching ensures optimal co-founder synergy and longevity.',
+        title: 'Smart Co-Founder Matching',
+        description: 'Advanced behavioral and skill-set matching ensures you find the perfect co-founder with complementary strengths.',
     },
     {
         icon: Handshake,
-        title: 'Strategic Investment Access',
-        description: 'Direct access to institutional investors and qualified angels aligned with your sector and stage.',
+        title: 'Direct Investor Access',
+        description: 'Connect directly with institutional investors and qualified angels aligned with your sector and growth stage.',
     },
     {
         icon: Sparkles,
-        title: 'AI-Powered Team Assembly',
-        description: 'Utilize proprietary AI algorithms to identify and recruit specialized core team members globally.',
+        title: 'AI-Powered Team Building',
+        description: 'Leverage proprietary AI algorithms to identify and recruit specialized talent that fits your startup culture.',
     },
     {
         icon: Target,
-        title: 'Market Validation Tools',
-        description: 'Gain insights and resources to validate your market fit before commencing development or scaling.',
+        title: 'Market Validation Resources',
+        description: 'Access insights and tools to validate your market fit before scaling or committing significant resources.',
     },
 ];
 

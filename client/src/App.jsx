@@ -32,6 +32,7 @@ function App() {
                 <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/chat" element={<Chat />} />
                 <Route path="/profile" element={<Profile />} />
+                <Route path="/browse-startups" element={<StartupList />} />
               </Routes>
             </main>
           </div>

@@ -1,22 +1,23 @@
 import "./HeroSection.css";
+import { Link } from "react-router-dom";
 
 const HeroSection = () => {
     return (
         <section className="hero-section">
             <div className="hero-container">
                 <h1 className="hero-heading">
-                    <span className="hero-heading-span">The Platform for</span>
+                    <span className="hero-heading-span">Build the Future. Together.</span>
                 </h1>
                 <p className="hero-subtext">
-                    <strong>Founders:</strong> Find your core team. <strong>Joiners:</strong> Find high-impact startups with real potential.
+                    <strong>Founders:</strong> Connect with the perfect co-founder to bring your vision to life. <strong>Talent:</strong> Join high-growth startups and make a real impact.
                 </p>
                 <div className="hero-buttons">
-                    <a href="#" className="hero-button-primary">
-                        Post Your Opportunity
-                    </a>
-                    <a href="#" className="hero-button-secondary">
-                        Explore Talents & Startups
-                    </a>
+                    <Link to="register" className="hero-button-primary">
+                        Find Your Co-Founder
+                    </Link>
+                    <Link to="browse-startups" className="hero-button-secondary">
+                        Browse Opportunities
+                    </Link>
                 </div>
             </div>
         </section>

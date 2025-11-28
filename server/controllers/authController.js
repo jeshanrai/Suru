@@ -47,6 +47,10 @@ const authUser = async (req, res) => {
             name: user.name,
             email: user.email,
             role: user.role,
+            bio: user.bio,
+            skills: user.skills,
+            profilePicture: user.profilePicture,
+            portfolio: user.portfolio,
             token: generateToken(user._id),
         });
     } else {

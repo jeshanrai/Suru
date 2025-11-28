@@ -12,28 +12,31 @@ import CreateStartup from './pages/CreateStartup';
 import Profile from './pages/Profile';
 
 import { AuthProvider } from './context/AuthContext';
+import { SocketProvider } from './context/SocketContext';
 
 function App() {
   return (
     <AuthProvider>
-      <Router>
-        <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
-          <Navbar />
-          <main className="main-content" style={{ flex: 1 }}>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<Register />} />
-              <Route path="/startups" element={<StartupList />} />
-              <Route path="/startups/create" element={<CreateStartup />} />
-              <Route path="/startups/:id" element={<StartupDetail />} />
-              <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/chat" element={<Chat />} />
-              <Route path="/profile" element={<Profile />} />
-            </Routes>
-          </main>
-        </div>
-      </Router>
+      <SocketProvider>
+        <Router>
+          <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+            <Navbar />
+            <main className="main-content" style={{ flex: 1 }}>
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
+                <Route path="/startups" element={<StartupList />} />
+                <Route path="/startups/create" element={<CreateStartup />} />
+                <Route path="/startups/:id" element={<StartupDetail />} />
+                <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/chat" element={<Chat />} />
+                <Route path="/profile" element={<Profile />} />
+              </Routes>
+            </main>
+          </div>
+        </Router>
+      </SocketProvider>
     </AuthProvider>
   );
 }

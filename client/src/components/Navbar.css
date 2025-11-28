@@ -119,11 +119,37 @@
     background-color: var(--accent-light, #e0e7ff);
     color: var(--accent, #4f46e5);
     transition: background-color 0.2s;
+    position: relative;
+    text-decoration: none;
 }
 
 .navbar-icon-link:hover {
     background-color: var(--accent);
     color: var(--bg-card);
+}
+
+.icon-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.notification-badge {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background-color: #ef4444;
+    color: white;
+    font-size: 0.7rem;
+    font-weight: bold;
+    height: 18px;
+    width: 18px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid white;
 }
 
 /* Profile Picture */

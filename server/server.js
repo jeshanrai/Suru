@@ -12,14 +12,13 @@ const app = express();
 const server = http.createServer(app);
 app.use(cors({
     origin: ["http://192.168.1.72:5173", "http://localhost:5173"],
-    // 💡 FIX HERE: Added "PUT", "PATCH", and "DELETE"
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH"]
 }));
 
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
-// 👉 Correct Socket.io CORS config
+// Socket.io CORS config
 const io = new Server(server, {
     cors: {
         origin: ["http://192.168.1.72:5173", "http://localhost:5173"],
@@ -27,24 +26,71 @@ const io = new Server(server, {
     }
 });
 
+// Track which users are in which chat rooms
+const userChatRooms = new Map(); // userId -> roomId
+
 io.on('connection', (socket) => {
     console.log('User connected:', socket.id);
 
-    socket.on('join_chat', (data) => {
-        socket.join(data);
-        console.log(`User with ID: ${socket.id} joined room: ${data}`);
+    let currentUserId = null;
+
+    // Join user-specific room for notifications
+    socket.on('setup', (userData) => {
+        currentUserId = userData._id;
+        socket.join(userData._id);
+        socket.emit('connected');
+        console.log(`User ${userData._id} connected to own room`);
     });
 
-    socket.on('leave_chat', (data) => {
-        socket.leave(data);
-        console.log(`User with ID: ${socket.id} left room: ${data}`);
+    socket.on('join_chat', (room) => {
+        socket.join(room);
+        if (currentUserId) {
+            userChatRooms.set(currentUserId, room);
+        }
+        console.log(`User ${currentUserId} joined room: ${room}`);
     });
 
-    socket.on('send_message', (data) => {
-        socket.to(data.room).emit('receive_message', data);
+    socket.on('leave_chat', (room) => {
+        socket.leave(room);
+        if (currentUserId) {
+            userChatRooms.delete(currentUserId);
+        }
+        console.log(`User ${currentUserId} left room: ${room}`);
+    });
+
+    socket.on('send_message', (newMessageReceived) => {
+        const { receiver, conversationId, room } = newMessageReceived;
+
+        // Emit to the specific chat room
+        socket.to(room).emit('receive_message', newMessageReceived);
+
+        // Check if receiver is currently in this chat room
+        const receiverInRoom = userChatRooms.get(receiver) === room;
+
+        // Only send notification if receiver is NOT in the chat room
+        if (!receiverInRoom) {
+            socket.to(receiver).emit('message_notification', {
+                type: 'new_message',
+                message: newMessageReceived,
+                conversationId
+            });
+        }
+    });
+
+    socket.on('mark_seen', (data) => {
+        const { senderId, receiverId, conversationId } = data;
+        // Notify the sender that their messages were read
+        socket.to(senderId).emit('message_seen', {
+            conversationId,
+            readerId: receiverId,
+            readAt: new Date()
+        });
     });
 
     socket.on('disconnect', () => {
+        if (currentUserId) {
+            userChatRooms.delete(currentUserId);
+        }
         console.log('User disconnected', socket.id);
     });
 });

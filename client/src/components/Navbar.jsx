@@ -1,13 +1,15 @@
 import React, { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Menu, X, MessageSquare, LogOut } from 'lucide-react';
+import { Menu, X, MessageCircle, LogOut } from 'lucide-react';
 import { AuthContext } from '../context/AuthContext';
+import { SocketContext } from '../context/SocketContext';
 import './Navbar.css';
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const navigate = useNavigate();
     const { user, logout } = useContext(AuthContext);
+    const { unreadCount } = useContext(SocketContext);
 
     const handleLogout = () => {
         logout();
@@ -46,12 +48,15 @@ const Navbar = () => {
         <ul className="navbar-links-right">
             {user ? (
                 <>
-                    {/* Message Icon - Visible on desktop AND mobile */}
                     <li className="navbar-icon-link-container">
                         <Link to="/chat" className="navbar-icon-link" aria-label="Messages">
-                            <MessageSquare size={20} />
+                            <div className="icon-wrapper">
+                                <MessageCircle size={20} />
+                                {unreadCount > 0 && <span className="notification-badge">{unreadCount}</span>}
+                            </div>
                         </Link>
                     </li>
+
 
                     {/* Profile Link - Visible on desktop AND mobile */}
                     <li className="navbar-profile-container">

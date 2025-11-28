@@ -65,24 +65,6 @@ const AboutUs = () => {
                     </div>
                 </div>
 
-                <div className="about-us-stats">
-                    <div className="stat-item">
-                        <h3>500+</h3>
-                        <p>Active Startups</p>
-                    </div>
-                    <div className="stat-item">
-                        <h3>2,000+</h3>
-                        <p>Registered Users</p>
-                    </div>
-                    <div className="stat-item">
-                        <h3>1,200+</h3>
-                        <p>Successful Connections</p>
-                    </div>
-                    <div className="stat-item">
-                        <h3>50+</h3>
-                        <p>Countries Worldwide</p>
-                    </div>
-                </div>
             </div>
         </section>
     );

@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Link } from 'react-router-dom';
 import { MapPin, DollarSign, Users } from 'lucide-react';
 import './StartupCard.css';
 
-const StartupCard = ({ startup }) => {
+const StartupCard = memo(({ startup }) => {
     return (
         <div className="startup-card card">
             <div className="startup-header">
@@ -40,6 +40,8 @@ const StartupCard = ({ startup }) => {
             </Link>
         </div>
     );
-};
+});
+
+StartupCard.displayName = 'StartupCard';
 
 export default StartupCard;

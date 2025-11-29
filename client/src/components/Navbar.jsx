@@ -1,11 +1,11 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, memo } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Menu, X, MessageCircle, LogOut } from 'lucide-react';
 import { AuthContext } from '../context/AuthContext';
 import { SocketContext } from '../context/SocketContext';
 import './Navbar.css';
 
-const Navbar = () => {
+const Navbar = memo(() => {
     const [isOpen, setIsOpen] = useState(false);
     const navigate = useNavigate();
     const { user, logout } = useContext(AuthContext);
@@ -65,6 +65,7 @@ const Navbar = () => {
                                 src={profilePic}
                                 alt="Profile"
                                 className="navbar-profile-pic"
+                                loading="lazy"
                             />
                         </Link>
                     </li>
@@ -88,7 +89,7 @@ const Navbar = () => {
         <nav className="navbar">
             <div className="container navbar-container">
                 <Link to="/" className="navbar-logo" onClick={() => setIsOpen(false)}>
-                    <img src="/images/web_logo.png" alt="StartUp Connect" className="logo-image" />
+                    <img src="/images/web_logo.png" alt="StartUp Connect" className="logo-image" loading="lazy" />
                     <span className="logo-text">SuRu</span>
                 </Link>
 
@@ -113,6 +114,8 @@ const Navbar = () => {
             </div>
         </nav>
     );
-};
+});
+
+Navbar.displayName = 'Navbar';
 
 export default Navbar;

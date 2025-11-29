@@ -27,7 +27,7 @@ const AboutUs = () => {
     ];
 
     return (
-        <section className="about-us-section">
+        <section id="about" className="about-us-section">
             <div className="container">
                 <div className="about-us-header">
                     <h2 className="section-title">About StartupConnect</h2>

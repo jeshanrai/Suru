@@ -133,7 +133,30 @@ const Chat = () => {
     const fetchConversations = async () => {
         try {
             const { data } = await api.get('/messages/conversations');
-            setConversations(data);
+
+            // Fetch profile pictures for each user
+            const conversationsWithProfiles = await Promise.all(
+                data.map(async (conv) => {
+                    if (conv.otherUser && conv.otherUser._id) {
+                        try {
+                            const { data: userData } = await api.get(`/users/${conv.otherUser._id}`);
+                            return {
+                                ...conv,
+                                otherUser: {
+                                    ...conv.otherUser,
+                                    profilePicture: userData.profilePicture
+                                }
+                            };
+                        } catch (error) {
+                            console.error(`Error fetching profile for user ${conv.otherUser._id}:`, error);
+                            return conv;
+                        }
+                    }
+                    return conv;
+                })
+            );
+
+            setConversations(conversationsWithProfiles);
             setLoading(false);
         } catch (error) {
             console.error('Error fetching conversations:', error);
@@ -253,14 +276,18 @@ const Chat = () => {
                                 onClick={() => handleSelectConversation(conv.otherUser._id)}
                             >
                                 <div className="conversation-avatar">
-                                    {conv.otherUser.profileImage ? (
-                                        <img src={conv.otherUser.profileImage} alt={conv.otherUser.name} />
+                                    {conv.otherUser.profilePicture ? (
+                                        <img
+                                            src={conv.otherUser.profilePicture}
+                                            alt={conv.otherUser.name}
+                                        />
                                     ) : (
                                         <div className="avatar-placeholder">
                                             {conv.otherUser.name?.charAt(0).toUpperCase()}
                                         </div>
                                     )}
                                 </div>
+
 
                                 <div className="conversation-info">
                                     <div className="conversation-top">
@@ -311,8 +338,8 @@ const Chat = () => {
 
                             <div className="chat-user-info">
                                 <div className="chat-avatar">
-                                    {selectedUser.profileImage ? (
-                                        <img src={selectedUser.profileImage} alt={selectedUser.name} />
+                                    {selectedUser.profilePicture ? (
+                                        <img src={selectedUser.profilePicture} alt={selectedUser.name} />
                                     ) : (
                                         <div className="avatar-placeholder">
                                             {selectedUser.name?.charAt(0).toUpperCase()}
@@ -321,7 +348,6 @@ const Chat = () => {
                                 </div>
                                 <div>
                                     <h3>{selectedUser.name}</h3>
-                                    <p className="user-role">{selectedUser.role}</p>
                                 </div>
                             </div>
                         </div>

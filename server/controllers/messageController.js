@@ -87,7 +87,7 @@ const getConversations = async (req, res) => {
         const existingConversations = await Conversation.find({
             participants: currentUserId
         })
-            .populate('participants', 'name profileImage role')
+            .populate('participants', 'name profilePicture role')
             .populate('lastMessage')
             .sort({ updatedAt: -1 });
 
@@ -115,7 +115,7 @@ const getConversations = async (req, res) => {
             status: 'accepted'
         }).populate({
             path: 'startup',
-            populate: { path: 'founder', select: 'name profileImage role' }
+            populate: { path: 'founder', select: 'name profilePicture role' }
         });
 
         myApplications.forEach(app => {
@@ -132,7 +132,7 @@ const getConversations = async (req, res) => {
             const acceptedApps = await Application.find({
                 startup: { $in: myStartupIds },
                 status: 'accepted'
-            }).populate('applicant', 'name profileImage role');
+            }).populate('applicant', 'name profilePicture role');
 
             acceptedApps.forEach(app => {
                 if (app.applicant) {
@@ -198,27 +198,39 @@ const markAsSeen = async (req, res) => {
     }
 };
 
+
 // @desc    Get total unread count
 // @route   GET /api/messages/unread/count
 // @access  Private
 const getUnreadCount = async (req, res) => {
     try {
-        const conversations = await Conversation.find({
-            participants: req.user._id
-        });
-
-        let totalUnread = 0;
-        conversations.forEach(conv => {
-            const unread = conv.unreadCounts.get(req.user._id.toString()) || 0;
-            if (unread > 0) {
-                totalUnread += 1;
-            }
-        });
-
-        res.json({ count: totalUnread });
+        const count = await calculateUnreadCount(req.user._id);
+        res.json({ count });
     } catch (error) {
         res.status(500).json({ message: "Failed to get unread count" });
     }
 };
 
-module.exports = { sendMessage, getMessages, getConversations, markAsSeen, getUnreadCount };
+// Helper function to calculate unread count for a user
+const calculateUnreadCount = async (userId) => {
+    try {
+        const conversations = await Conversation.find({
+            participants: userId
+        });
+
+        let totalUnread = 0;
+        conversations.forEach(conv => {
+            const unread = conv.unreadCounts.get(userId.toString()) || 0;
+            if (unread > 0) {
+                totalUnread += 1;
+            }
+        });
+
+        return totalUnread;
+    } catch (error) {
+        console.error("Error calculating unread count:", error);
+        return 0;
+    }
+};
+
+module.exports = { sendMessage, getMessages, getConversations, markAsSeen, getUnreadCount, calculateUnreadCount };

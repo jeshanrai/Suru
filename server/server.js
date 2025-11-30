@@ -4,6 +4,7 @@ const cors = require('cors');
 const http = require('http');
 const { Server } = require('socket.io');
 const connectDB = require('./config/db');
+const { calculateUnreadCount } = require('./controllers/messageController');
 
 dotenv.config();
 connectDB();
@@ -25,6 +26,17 @@ const io = new Server(server, {
         methods: ["GET", "POST"]
     }
 });
+
+// Helper function to broadcast unread count to a specific user
+const broadcastUnreadCount = async (userId, io) => {
+    try {
+        const count = await calculateUnreadCount(userId);
+        io.to(userId).emit('unread_count_update', { count });
+        console.log(`Broadcasted unread count ${count} to user ${userId}`);
+    } catch (error) {
+        console.error('Error broadcasting unread count:', error);
+    }
+};
 
 // Track which users are in which chat rooms
 const userChatRooms = new Map(); // userId -> roomId
@@ -58,7 +70,7 @@ io.on('connection', (socket) => {
         console.log(`User ${currentUserId} left room: ${room}`);
     });
 
-    socket.on('send_message', (newMessageReceived) => {
+    socket.on('send_message', async (newMessageReceived) => {
         const { receiver, conversationId, room } = newMessageReceived;
 
         // Emit to the specific chat room
@@ -75,16 +87,23 @@ io.on('connection', (socket) => {
                 conversationId
             });
         }
+
+        // Broadcast updated unread count to receiver
+        await broadcastUnreadCount(receiver, io);
     });
 
-    socket.on('mark_seen', (data) => {
+    socket.on('mark_seen', async (data) => {
         const { senderId, receiverId, conversationId } = data;
+
         // Notify the sender that their messages were read
         socket.to(senderId).emit('message_seen', {
             conversationId,
             readerId: receiverId,
             readAt: new Date()
         });
+
+        // Broadcast updated unread count to the receiver (person who marked as seen)
+        await broadcastUnreadCount(receiverId, io);
     });
 
     socket.on('disconnect', () => {

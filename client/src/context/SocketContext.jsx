@@ -18,13 +18,21 @@ export const SocketProvider = ({ children }) => {
             newSocket.emit('setup', user);
             newSocket.on('connected', () => console.log('Socket connected'));
 
-            newSocket.on('message_notification', () => {
-                fetchUnreadCount();
+            // Listen for server-pushed unread count updates
+            newSocket.on('unread_count_update', (data) => {
+                console.log('Received unread count update:', data.count);
+                setUnreadCount(data.count);
+            });
+
+            // Keep message_notification for other purposes (like showing toast notifications)
+            newSocket.on('message_notification', (notification) => {
+                console.log('New message notification received');
+                // Count will be updated via unread_count_update event
             });
 
             setSocket(newSocket);
 
-            // Fetch initial unread count
+            // Fetch initial unread count on mount
             fetchUnreadCount();
 
             return () => {
@@ -35,6 +43,7 @@ export const SocketProvider = ({ children }) => {
                 socket.disconnect();
                 setSocket(null);
             }
+            setUnreadCount(0);
         }
     }, [user]);
 

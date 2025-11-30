@@ -18,9 +18,6 @@ const Navbar = memo(() => {
 
     const toggleMenu = () => setIsOpen(!isOpen);
 
-    // Placeholder for user profile picture
-    const profilePic = user?.profilePicture || '/images/default-profile.png';
-
     // The links that will be inside the hamburger menu on mobile
     const toggledLinks = (
         <ul className={`navbar-mobile-toggled ${isOpen ? 'active' : ''}`}>
@@ -61,12 +58,18 @@ const Navbar = memo(() => {
                     {/* Profile Link - Visible on desktop AND mobile */}
                     <li className="navbar-profile-container">
                         <Link to="/profile" className="navbar-profile-link" aria-label="Profile">
-                            <img
-                                src={profilePic}
-                                alt="Profile"
-                                className="navbar-profile-pic"
-                                loading="lazy"
-                            />
+                            {user.profilePicture ? (
+                                <img
+                                    src={user.profilePicture}
+                                    alt="Profile"
+                                    className="navbar-profile-pic"
+                                    loading="lazy"
+                                />
+                            ) : (
+                                <div className="navbar-profile-placeholder">
+                                    {user.name?.charAt(0).toUpperCase()}
+                                </div>
+                            )}
                         </Link>
                     </li>
 

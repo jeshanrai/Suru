@@ -9,7 +9,7 @@ const CreateStartup = () => {
         title: '',
         description: '',
         category: 'Tech',
-        investmentNeeded: '',
+        status: 'Hiring',
         location: '',
         skillsRequired: ''
     });
@@ -73,13 +73,13 @@ const CreateStartup = () => {
                         />
                     </div>
                     <div className="form-group">
-                        <label>Investment Needed ($)</label>
-                        <input
-                            type="number"
-                            name="investmentNeeded"
-                            value={formData.investmentNeeded}
-                            onChange={handleChange}
-                        />
+                        <label>Status</label>
+                        <select name="status" value={formData.status} onChange={handleChange}>
+                            <option value="Hiring">Hiring</option>
+                            <option value="Raising Funds">Raising Funds</option>
+                            <option value="Seeking Cofounder">Seeking Cofounder</option>
+                            <option value="Open">Open</option>
+                        </select>
                     </div>
                     <div className="form-group">
                         <label>Location</label>

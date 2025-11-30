@@ -5,11 +5,12 @@ const startupSchema = mongoose.Schema({
     description: { type: String, required: true },
     category: { type: String, required: true },
     founder: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
-    investmentNeeded: { type: Number, default: 0 },
+    status: { type: String, default: 'Open' },
     skillsRequired: [{ type: String }],
     location: { type: String },
     tags: [{ type: String }],
     image: { type: String },
+    logoUrl: { type: String },
 }, { timestamps: true });
 
 const Startup = mongoose.model('Startup', startupSchema);

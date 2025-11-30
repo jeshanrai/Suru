@@ -1,6 +1,8 @@
-.page-container {
+.page-container-dashboard {
     padding-top: 10rem !important;
     padding-bottom: 4rem;
+    max-width: 1500px;
+    padding: 0 1.5rem;
 }
 
 .dashboard-header {

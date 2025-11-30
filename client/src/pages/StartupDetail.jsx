@@ -3,7 +3,6 @@ import { useParams, useNavigate } from 'react-router-dom';
 import api from '../utils/api';
 import { AuthContext } from '../context/AuthContext';
 import { MapPin, DollarSign, Calendar, User, CheckCircle } from 'lucide-react';
-import Loading from '../components/Loading';
 import './StartupDetail.css';
 
 const StartupDetail = () => {
@@ -11,7 +10,7 @@ const StartupDetail = () => {
     const navigate = useNavigate();
     const { user } = useContext(AuthContext);
     const [startup, setStartup] = useState(null);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
     const [applying, setApplying] = useState(false);
     const [message, setMessage] = useState('');
     const [success, setSuccess] = useState(false);
@@ -51,28 +50,55 @@ const StartupDetail = () => {
         }
     };
 
-    if (loading) return <Loading />;
+    const getStatusClass = (status) => {
+        switch (status?.toLowerCase()) {
+            case 'hiring': return 'status-hiring';
+            case 'raising funds': return 'status-raising';
+            case 'seeking cofounder': return 'status-seeking';
+            default: return 'status-default';
+        }
+    };
+
+    if (loading) return null;
 
     if (!startup) return <div className="no-results">Startup not found</div>;
 
     return (
-        <div className="container page-container">
+        <div className="container-page-container">
             <div className="startup-detail-header card">
-                <div className="header-content">
-                    <span className="category-badge">{startup.category}</span>
-                    <h1>{startup.title}</h1>
-                    <div className="meta-row">
-                        <div className="meta-item">
-                            <MapPin size={18} />
-                            <span>{startup.location || 'Remote'}</span>
+                <div className="startup-header-row">
+                    <div className="startup-logo-container">
+                        {(startup.logoUrl || startup.founder?.profilePicture) ? (
+                            <img
+                                src={startup.logoUrl || startup.founder?.profilePicture}
+                                alt={startup.title}
+                                className="startup-logo"
+                            />
+                        ) : startup.founder?.name ? (
+                            <div className="startup-logo-placeholder">
+                                {startup.founder.name.charAt(0).toUpperCase()}
+                            </div>
+                        ) : null}
+                    </div>
+
+                    <div className="header-content">
+                        <div className="header-top-row">
+                            <h1 className="startup-title-large">{startup.title}</h1>
+                            <span className={`status-badge ${getStatusClass(startup.status)}`}>
+                                {startup.status || "Open"}
+                            </span>
                         </div>
-                        <div className="meta-item">
-                            <DollarSign size={18} />
-                            <span>Investment: ${startup.investmentNeeded?.toLocaleString()}</span>
-                        </div>
-                        <div className="meta-item">
-                            <Calendar size={18} />
-                            <span>Founded: {new Date(startup.createdAt).toLocaleDateString()}</span>
+
+                        <div className="meta-row">
+                            <span className="category-badge">{startup.category}</span>
+                            <div className="meta-item">
+                                <MapPin size={18} />
+                                <span>{startup.location || 'Remote'}</span>
+                            </div>
+                            <div className="meta-item">
+                                <Calendar size={18} />
+                                <span>Founded: {new Date(startup.createdAt).toLocaleDateString()}</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -100,14 +126,21 @@ const StartupDetail = () => {
                         <h3>About the Founder</h3>
                         <div className="founder-info">
                             <div className="founder-avatar">
-                                <User size={32} />
+                                {startup.founder?.profilePicture ? (
+                                    <img
+                                        src={startup.founder.profilePicture}
+                                        alt={startup.founder.name}
+                                        className="founder-avatar-img"
+                                    />
+                                ) : (
+                                    <User size={32} />
+                                )}
                             </div>
                             <div>
                                 <h4>{startup.founder?.name}</h4>
                                 <p>{startup.founder?.email}</p>
                             </div>
                         </div>
-                        {startup.founder?.bio && <p className="founder-bio">{startup.founder.bio}</p>}
                     </div>
 
                     <div className="card action-card">

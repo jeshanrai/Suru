@@ -68,7 +68,7 @@ const Dashboard = () => {
     if (loading) return <div className="loading">Loading...</div>;
 
     return (
-        <div className="container page-container">
+        <div className="page-container-dashboard">
             <div className="dashboard-header">
                 <div className="user-welcome">
                     <h1>Welcome, {user.name}</h1>

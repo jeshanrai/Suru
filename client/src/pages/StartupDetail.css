@@ -3,6 +3,65 @@
     padding: 2rem;
 }
 
+.container-page-container {
+    margin-top: 8rem;
+    max-width: 1500px;
+    padding: 0 1.5rem;
+}
+
+.startup-header-row {
+    display: flex;
+    gap: 1.5rem;
+    align-items: flex-start;
+}
+
+.startup-logo-container {
+    flex-shrink: 0;
+}
+
+.startup-logo {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+}
+
+.startup-logo-placeholder {
+    width: 80px;
+    height: 80px;
+    border-radius: var(--radius-md);
+    background: linear-gradient(135deg, var(--accent), var(--accent-hover));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: white;
+    text-transform: uppercase;
+    box-shadow: var(--shadow-sm);
+}
+
+.header-content {
+    flex: 1;
+}
+
+.header-top-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 0.5rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.startup-title-large {
+    font-size: 2rem;
+    margin: 0;
+    color: var(--text-main);
+    line-height: 1.2;
+}
+
 .category-badge {
     display: inline-block;
     background-color: #e0f2fe;
@@ -10,18 +69,46 @@
     padding: 0.25rem 1rem;
     border-radius: var(--radius-full);
     font-weight: 600;
-    margin-bottom: 1rem;
-}
-
-.header-content h1 {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
+    font-size: 0.9rem;
 }
 
 .meta-row {
     display: flex;
-    gap: 2rem;
+    gap: 1.5rem;
     color: var(--text-light);
+    align-items: center;
+    margin-top: 0.5rem;
+    flex-wrap: wrap;
+}
+
+/* Status Badges */
+.status-badge {
+    padding: 0.35rem 1rem;
+    border-radius: var(--radius-full);
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.025em;
+}
+
+.status-hiring {
+    background-color: #dcfce7;
+    color: #166534;
+}
+
+.status-raising {
+    background-color: #dbeafe;
+    color: #1e40af;
+}
+
+.status-seeking {
+    background-color: #f3e8ff;
+    color: #6b21a8;
+}
+
+.status-default {
+    background-color: #f1f5f9;
+    color: #475569;
 }
 
 .detail-grid {
@@ -75,6 +162,13 @@
     align-items: center;
     justify-content: center;
     color: var(--text-light);
+    overflow: hidden;
+}
+
+.founder-avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .founder-bio {

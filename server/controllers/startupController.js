@@ -4,18 +4,19 @@ const Startup = require('../models/Startup');
 // @route   POST /api/startups
 // @access  Private (Founder only)
 const createStartup = async (req, res) => {
-    const { title, description, category, investmentNeeded, skillsRequired, location, tags, image } = req.body;
+    const { title, description, category, status, skillsRequired, location, tags, image, logoUrl } = req.body;
 
     const startup = new Startup({
         title,
         description,
         category,
         founder: req.user._id,
-        investmentNeeded,
+        status,
         skillsRequired,
         location,
         tags,
-        image
+        image,
+        logoUrl
     });
 
     const createdStartup = await startup.save();
@@ -45,7 +46,7 @@ const getStartups = async (req, res) => {
         query.founder = founder;
     }
 
-    const startups = await Startup.find(query).populate('founder', 'name email');
+    const startups = await Startup.find(query).populate('founder', 'name email profilePicture');
     res.json(startups);
 };
 
@@ -53,7 +54,7 @@ const getStartups = async (req, res) => {
 // @route   GET /api/startups/:id
 // @access  Public
 const getStartupById = async (req, res) => {
-    const startup = await Startup.findById(req.params.id).populate('founder', 'name email bio profileImage');
+    const startup = await Startup.findById(req.params.id).populate('founder', 'name email bio profilePicture');
 
     if (startup) {
         res.json(startup);

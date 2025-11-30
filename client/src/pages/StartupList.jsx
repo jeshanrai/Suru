@@ -3,11 +3,17 @@ import api from '../utils/api';
 import StartupCard from '../components/StartupCard';
 import { Search, Filter } from 'lucide-react';
 import './StartupList.css';
-import Loading from '../components/Loading';
+
+// Simple Loading component
+const Loading = () => (
+    <div className="loading">
+        <p>Loading startups...</p>
+    </div>
+);
 
 const StartupList = () => {
     const [startups, setStartups] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
     const [filters, setFilters] = useState({
         search: '',
         category: '',
@@ -19,7 +25,7 @@ const StartupList = () => {
     }, [filters]);
 
     const fetchStartups = async () => {
-        setLoading(true); // Ensure loading shows every time fetch starts
+        setLoading(true);
         try {
             const params = new URLSearchParams();
             if (filters.search) params.append('search', filters.search);
@@ -30,9 +36,9 @@ const StartupList = () => {
             setStartups(data);
         } catch (error) {
             console.error('Error fetching startups:', error);
-            setStartups([]); // Clear startups if error occurs
+            setStartups([]);
         } finally {
-            setLoading(false); // Stop loading after fetch completes
+            setLoading(false);
         }
     };
 

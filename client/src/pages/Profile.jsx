@@ -159,7 +159,7 @@ const Profile = () => {
         : <span className="avatar-initials">{user.name?.charAt(0).toUpperCase()}</span>;
 
     return (
-        <div className="container page-container">
+        <div className="page-container-profile">
             <div className="profile-page">
                 {/* Profile Header */}
                 <div className="profile-header">

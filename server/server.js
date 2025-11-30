@@ -12,7 +12,7 @@ connectDB();
 const app = express();
 const server = http.createServer(app);
 app.use(cors({
-    origin: ["http://192.168.1.72:5173", "http://localhost:5173"],
+    origin: ["http://192.168.1.72:5173", "http://localhost:5173", "https://suru-mu.vercel.app"],
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH"]
 }));
 
@@ -22,7 +22,7 @@ app.use(express.urlencoded({ limit: '50mb', extended: true }));
 // Socket.io CORS config
 const io = new Server(server, {
     cors: {
-        origin: ["http://192.168.1.72:5173", "http://localhost:5173"],
+        origin: ["http://192.168.1.72:5173", "http://localhost:5173", "https://suru-mu.vercel.app"],
         methods: ["GET", "POST"]
     }
 });

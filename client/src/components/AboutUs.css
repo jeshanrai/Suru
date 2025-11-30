@@ -86,7 +86,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-hover) 100%);
+    background-color: #0e7490;
     color: white;
     border-radius: 50%;
 }

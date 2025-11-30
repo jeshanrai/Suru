@@ -9,7 +9,7 @@ const FeaturesSection = ({ features }) => {
             <div className="features-container">
                 <div className="features-header">
                     <h2 className="features-subtitle">
-                        Why CoFoundHQ?
+                        Why SuRu?
                     </h2>
                     <p className="features-title">
                         Engineered for Founding Teams

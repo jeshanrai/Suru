@@ -66,7 +66,7 @@ const PrivacyPolicy = () => {
                 <section>
                     <h2>7. Contact Us</h2>
                     <p>If you have questions about this Privacy Policy, please contact us at:</p>
-                    <p><strong>Email:</strong> privacy@startupconnect.com</p>
+                    <p><strong>Email:</strong> suru@gmail.com</p>
                 </section>
             </div>
         </div>

@@ -44,4 +44,4 @@ const StartupCard = memo(({ startup }) => {
 
 StartupCard.displayName = 'StartupCard';
 
-export default StartupCard;
+export default StartupCard;  

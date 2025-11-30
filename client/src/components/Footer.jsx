@@ -33,9 +33,9 @@ const Footer = () => {
                 <div className="footer-section">
                     <h4>Contact</h4>
                     <ul>
-                        <li><i className="fas fa-envelope"></i> <a href="mailto:info@startupconnect.com">info@startupconnect.com</a></li>
-                        <li><i className="fas fa-phone"></i> <a href="tel:+1234567890">+1 (234) 567-890</a></li>
-                        <li><i className="fas fa-map-marker-alt"></i> 123 Innovation Street, Tech Valley, CA 94025</li>
+                        <li><i className="fas fa-envelope"></i> <a href="suru@gmail.com"></a>suru@gmail.com</li>
+                        <li><i className="fas fa-phone"></i> <a href="tel:+9779860149199">+977 9860149199</a></li>
+                        <li><i className="fas fa-map-marker-alt"></i>New Baneshwor, Kathmandu, Nepal</li>
                     </ul>
                 </div>
 

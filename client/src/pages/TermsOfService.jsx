@@ -15,7 +15,7 @@ const TermsOfService = () => {
 
                 <section>
                     <h2>2. Use of Service</h2>
-                    <p>StartUpConnect provides a platform for entrepreneurs and investors to connect. You agree to:</p>
+                    <p>SuRu provides a platform for entrepreneurs and investors to connect. You agree to:</p>
                     <ul>
                         <li>Provide accurate and complete information</li>
                         <li>Maintain the security of your account credentials</li>
@@ -27,7 +27,7 @@ const TermsOfService = () => {
 
                 <section>
                     <h2>3. User Content</h2>
-                    <p>You retain ownership of content you post on StartUpConnect. By posting content, you grant us a license to use, modify, and display that content in connection with our services.</p>
+                    <p>You retain ownership of content you post on SuRu. By posting content, you grant us a license to use, modify, and display that content in connection with our services.</p>
                     <ul>
                         <li>You are responsible for the content you post</li>
                         <li>Content must not violate any laws or third-party rights</li>
@@ -42,7 +42,7 @@ const TermsOfService = () => {
 
                 <section>
                     <h2>5. Disclaimer of Warranties</h2>
-                    <p>StartUpConnect is provided "as is" without warranties of any kind. We do not guarantee:</p>
+                    <p>SuRu is provided "as is" without warranties of any kind. We do not guarantee:</p>
                     <ul>
                         <li>The accuracy or reliability of user-posted content</li>
                         <li>Uninterrupted or error-free service</li>
@@ -52,12 +52,12 @@ const TermsOfService = () => {
 
                 <section>
                     <h2>6. Limitation of Liability</h2>
-                    <p>StartUpConnect shall not be liable for any indirect, incidental, special, or consequential damages arising from your use of the service.</p>
+                    <p>SuRu shall not be liable for any indirect, incidental, special, or consequential damages arising from your use of the service.</p>
                 </section>
 
                 <section>
                     <h2>7. Investment Disclaimer</h2>
-                    <p>StartUpConnect does not provide investment advice. All investment decisions are made at your own risk. We recommend consulting with financial advisors before making any investment decisions.</p>
+                    <p>SuRu does not provide investment advice. All investment decisions are made at your own risk. We recommend consulting with financial advisors before making any investment decisions.</p>
                 </section>
 
                 <section>
@@ -68,7 +68,7 @@ const TermsOfService = () => {
                 <section>
                     <h2>9. Contact Information</h2>
                     <p>For questions about these Terms of Service, please contact us at:</p>
-                    <p><strong>Email:</strong> legal@startupconnect.com</p>
+                    <p><strong>Email:</strong> suru@gmail.com</p>
                 </section>
             </div>
         </div>

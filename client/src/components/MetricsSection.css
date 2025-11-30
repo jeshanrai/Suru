@@ -73,7 +73,7 @@
     width: 2rem;
     /* slightly smaller */
     height: 2rem;
-    color: #6366f1;
+    color: #06b6d4;
     margin: 0 auto 0.5rem auto;
 }
 
@@ -82,7 +82,9 @@
     /* smaller */
     font-weight: 600;
     /* reduced weight */
-    color: #4338ca;
+    color: #0e7490;
+    /* Blue-600 */
+
     margin-bottom: 0.25rem;
 }
 

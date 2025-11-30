@@ -2,8 +2,8 @@
     padding-top: 5rem;
     /* py-20 */
     padding-bottom: 5rem;
-    background-color: #4f46e5;
-    /* bg-indigo-600 */
+    background-color: #059669;
+
 }
 
 .testimonials-container {
@@ -109,7 +109,7 @@
     /* h-14 */
     width: 3.5rem;
     /* w-14 */
-    background-color: #4f46e5;
+    background-color: #0e7490;
     /* bg-indigo-600 */
     border-radius: 9999px;
     /* rounded-full */
@@ -145,6 +145,6 @@
     /* text-sm */
     font-weight: 500;
     /* font-medium */
-    color: #4338ca;
+    color: #06b6d4;
     /* text-indigo-700 */
 }

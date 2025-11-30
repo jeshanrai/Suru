@@ -2,12 +2,25 @@
     display: flex;
     flex-direction: column;
     height: 100%;
-    transition: transform 0.2s, box-shadow 0.2s;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    background: var(--bg-card);
+    border-radius: var(--radius-md);
+    padding: 1.25rem;
 }
 
+/* Hover effect */
 .startup-card:hover {
     transform: translateY(-5px);
     box-shadow: var(--shadow-md);
+}
+
+/* Startup Logo */
+.startup-logo {
+    width: 55px;
+    height: 55px;
+    object-fit: cover;
+    border-radius: var(--radius-full);
+    margin-bottom: 1rem;
 }
 
 .startup-header {
@@ -24,6 +37,7 @@
     border-radius: var(--radius-full);
     font-size: 0.8rem;
     font-weight: 600;
+    white-space: nowrap;
 }
 
 .date {
@@ -31,10 +45,12 @@
     color: var(--text-light);
 }
 
+/* Title */
 .startup-title {
     font-size: 1.25rem;
     margin-bottom: 0.5rem;
     color: var(--primary);
+    line-height: 1.3;
 }
 
 .startup-description {
@@ -44,12 +60,14 @@
     flex-grow: 1;
 }
 
+/* Meta items */
 .startup-meta {
     display: flex;
     gap: 1rem;
     margin-bottom: 1rem;
     color: var(--text-main);
     font-size: 0.9rem;
+    flex-wrap: wrap;
 }
 
 .meta-item {
@@ -58,6 +76,13 @@
     gap: 0.25rem;
 }
 
+/* Founder section */
+.founder-info {
+    margin-bottom: 1rem;
+    color: var(--text-main);
+}
+
+/* Skills */
 .startup-tags {
     display: flex;
     flex-wrap: wrap;
@@ -72,4 +97,47 @@
     border-radius: var(--radius-sm);
     font-size: 0.8rem;
     color: var(--text-main);
+    white-space: nowrap;
+}
+
+/* Status Badge */
+.status-badge {
+    padding: 0.25rem 0.75rem;
+    border-radius: var(--radius-full);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.025em;
+}
+
+.status-hiring {
+    background-color: #dcfce7;
+    color: #166534;
+}
+
+.status-raising {
+    background-color: #dbeafe;
+    color: #1e40af;
+}
+
+.status-seeking {
+    background-color: #f3e8ff;
+    color: #6b21a8;
+}
+
+.status-default {
+    background-color: #f1f5f9;
+    color: #475569;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .startup-card {
+        padding: 1rem;
+    }
+
+    .startup-meta {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
 }

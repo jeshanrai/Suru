@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import api from '../utils/api';
 import { AuthContext } from '../context/AuthContext';
-import { MapPin, DollarSign, Calendar, User, CheckCircle } from 'lucide-react';
+import { MapPin, DollarSign, Calendar, User, CheckCircle, Upload, X } from 'lucide-react';
 import './StartupDetail.css';
 
 const StartupDetail = () => {
@@ -15,6 +15,8 @@ const StartupDetail = () => {
     const [message, setMessage] = useState('');
     const [success, setSuccess] = useState(false);
     const [error, setError] = useState('');
+    const [resumeFile, setResumeFile] = useState(null);
+    const [resumeError, setResumeError] = useState('');
 
     useEffect(() => {
         fetchStartup();
@@ -33,6 +35,35 @@ const StartupDetail = () => {
         }
     };
 
+    const handleFileChange = (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        // Validate file type
+        const allowedTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
+        if (!allowedTypes.includes(file.type)) {
+            setResumeError('Please upload a PDF, DOC, or DOCX file');
+            e.target.value = '';
+            return;
+        }
+
+        // Validate file size (5MB max)
+        const maxSize = 5 * 1024 * 1024; // 5MB in bytes
+        if (file.size > maxSize) {
+            setResumeError('File size must be less than 5MB');
+            e.target.value = '';
+            return;
+        }
+
+        setResumeError('');
+        setResumeFile(file);
+    };
+
+    const removeResume = () => {
+        setResumeFile(null);
+        setResumeError('');
+    };
+
     const handleApply = async (e) => {
         e.preventDefault();
         if (!user) {
@@ -42,9 +73,33 @@ const StartupDetail = () => {
 
         setError('');
         try {
-            await api.post('/applications', { startupId: id, message });
+            let resumeData = null;
+            let resumeFileName = null;
+            let resumeFileType = null;
+
+            // Convert resume to Base64 if file is selected
+            if (resumeFile) {
+                const reader = new FileReader();
+                resumeData = await new Promise((resolve, reject) => {
+                    reader.onload = () => resolve(reader.result);
+                    reader.onerror = reject;
+                    reader.readAsDataURL(resumeFile);
+                });
+                resumeFileName = resumeFile.name;
+                resumeFileType = resumeFile.type;
+            }
+
+            await api.post('/applications', {
+                startupId: id,
+                message,
+                resume: resumeData,
+                resumeFileName,
+                resumeFileType
+            });
             setSuccess(true);
             setApplying(false);
+            setMessage('');
+            setResumeFile(null);
         } catch (err) {
             setError(err.response?.data?.message || 'Application failed');
         }
@@ -160,6 +215,38 @@ const StartupDetail = () => {
                                     rows="4"
                                     className="apply-textarea"
                                 />
+
+                                <div className="resume-upload-section">
+                                    <label className="resume-upload-label">
+                                        <Upload size={18} />
+                                        <span>Upload Resume (Optional)</span>
+                                        <input
+                                            type="file"
+                                            accept=".pdf,.doc,.docx"
+                                            onChange={handleFileChange}
+                                            className="resume-file-input"
+                                        />
+                                    </label>
+
+                                    {resumeFile && (
+                                        <div className="resume-file-preview">
+                                            <div className="file-info">
+                                                <span className="file-name">{resumeFile.name}</span>
+                                                <span className="file-size">({(resumeFile.size / 1024).toFixed(1)} KB)</span>
+                                            </div>
+                                            <button
+                                                type="button"
+                                                onClick={removeResume}
+                                                className="remove-file-btn"
+                                                title="Remove file"
+                                            >
+                                                <X size={16} />
+                                            </button>
+                                        </div>
+                                    )}
+
+                                    {resumeError && <div className="resume-error">{resumeError}</div>}
+                                </div>
                                 {error && <div className="error-text">{error}</div>}
                                 <div className="button-group">
                                     <button

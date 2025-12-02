@@ -34,7 +34,7 @@ const CreateStartup = () => {
     };
 
     return (
-        <div className="container page-container">
+        <div className="container-page-container">
             <div className="auth-card card" style={{ maxWidth: '600px', margin: '0 auto' }}>
                 <h2>Post Your Startup Idea</h2>
                 {error && <div className="error-message">{error}</div>}

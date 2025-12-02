@@ -1,8 +1,12 @@
 import { Rocket, Briefcase } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
 import "./UserPathSection.css";
 
 const UserPathSection = () => {
+    const { user } = useContext(AuthContext);
+
     return (
         <section id="user-paths" className="user-path-section">
             <div className="user-path-container">
@@ -21,7 +25,7 @@ const UserPathSection = () => {
                         <p className="user-path-card-text">
                             Stop settling for generic hires. Find highly vetted, skill-matched co-founders and early employees who are ready to commit to your vision and scale your startup.
                         </p>
-                        <Link to="register" className="user-path-card-button founders-button">
+                        <Link to={user ? "/create-startup" : "/login"} className="user-path-card-button founders-button">
                             Build Your Dream Team
                         </Link>
                     </div>
@@ -37,7 +41,7 @@ const UserPathSection = () => {
                         <p className="user-path-card-text">
                             Skip the traditional job boards. Discover high-potential, funded, and early-stage startups that need your specific expertise. Find meaningful equity and purpose.
                         </p>
-                        < Link to="browse-startups" className="user-path-card-button joiners-button">
+                        <Link to="browse-startups" className="user-path-card-button joiners-button">
                             Find Your Next Role
                         </Link>
                     </div>

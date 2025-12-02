@@ -50,6 +50,7 @@ function App() {
                   <Route path="/privacy" element={<PrivacyPolicy />} />
                   <Route path="/terms" element={<TermsOfService />} />
                   <Route path="/careers" element={<Careers />} />
+                  <Route path="/create-startup" element={<CreateStartup />} />
                   <Route path="/about" element={<AboutUs />} />
                 </Routes>
               </Suspense>

@@ -5,7 +5,7 @@ const Startup = require('../models/Startup');
 // @route   POST /api/applications
 // @access  Private
 const applyToStartup = async (req, res) => {
-    const { startupId, message } = req.body;
+    const { startupId, message, resume, resumeFileName, resumeFileType } = req.body;
 
     const startup = await Startup.findById(startupId);
     if (!startup) {
@@ -24,7 +24,10 @@ const applyToStartup = async (req, res) => {
     const application = await Application.create({
         applicant: req.user._id,
         startup: startupId,
-        message
+        message,
+        resume,
+        resumeFileName,
+        resumeFileType
     });
 
     res.status(201).json(application);

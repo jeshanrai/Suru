@@ -5,6 +5,9 @@ const applicationSchema = mongoose.Schema({
     startup: { type: mongoose.Schema.Types.ObjectId, ref: 'Startup', required: true },
     status: { type: String, enum: ['pending', 'shortlisted', 'accepted', 'rejected'], default: 'pending' },
     message: { type: String },
+    resume: { type: String }, // Base64 encoded resume
+    resumeFileName: { type: String },
+    resumeFileType: { type: String },
 }, { timestamps: true });
 
 const Application = mongoose.model('Application', applicationSchema);

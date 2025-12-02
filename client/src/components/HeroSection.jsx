@@ -1,7 +1,11 @@
 import "./HeroSection.css";
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
 
 const HeroSection = () => {
+    const { user } = useContext(AuthContext);
+
     return (
         <section className="hero-section">
             <div className="hero-container">
@@ -12,7 +16,7 @@ const HeroSection = () => {
                     <strong>Founders:</strong> Connect with the perfect co-founder to bring your vision to life. <strong>Talent:</strong> Join high-growth startups and make a real impact.
                 </p>
                 <div className="hero-buttons">
-                    <Link to="register" className="hero-button-primary">
+                    <Link to={user ? "/create-startup" : "/login"} className="hero-button-primary">
                         Find Your Co-Founder
                     </Link>
                     <Link to="browse-startups" className="hero-button-secondary">

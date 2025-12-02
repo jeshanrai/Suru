@@ -4,7 +4,7 @@
 }
 
 .container-page-container {
-    margin-top: 8rem;
+    margin-top: 5rem;
     max-width: 1500px;
     padding: 0 1.5rem;
 }
@@ -150,7 +150,6 @@
     display: flex;
     align-items: center;
     gap: 1rem;
-    margin-bottom: 1rem;
 }
 
 .founder-avatar {
@@ -201,6 +200,89 @@
     color: var(--error);
     font-size: 0.9rem;
     margin-bottom: 1rem;
+}
+
+/* Resume Upload Styles */
+.resume-upload-section {
+    margin-bottom: 1rem;
+}
+
+.resume-upload-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    border: 2px dashed var(--border);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all 0.2s;
+    background-color: var(--bg-main);
+    color: var(--text-light);
+    font-weight: 500;
+}
+
+.resume-upload-label:hover {
+    border-color: var(--accent);
+    background-color: #f0f9ff;
+    color: var(--accent);
+}
+
+.resume-file-input {
+    display: none;
+}
+
+.resume-file-preview {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem;
+    margin-top: 0.5rem;
+    background-color: #f0f9ff;
+    border: 1px solid #bae6fd;
+    border-radius: var(--radius-md);
+}
+
+.file-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.file-name {
+    font-weight: 600;
+    color: var(--text-main);
+    font-size: 0.9rem;
+}
+
+.file-size {
+    font-size: 0.8rem;
+    color: var(--text-light);
+}
+
+.remove-file-btn {
+    background: none;
+    border: none;
+    color: var(--error);
+    cursor: pointer;
+    padding: 0.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-sm);
+    transition: background-color 0.2s;
+}
+
+.remove-file-btn:hover {
+    background-color: #fee2e2;
+}
+
+.resume-error {
+    color: var(--error);
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+    padding: 0.5rem;
+    background-color: #fee2e2;
+    border-radius: var(--radius-sm);
 }
 
 @media (min-width: 900px) {

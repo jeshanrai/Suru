@@ -1,8 +1,12 @@
 import { Rocket } from "lucide-react";
 import "./CtaSection.css";
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
 
 const CtaSection = () => {
+    const { user } = useContext(AuthContext);
+
     return (
         <section className="cta-section">
             <div className="cta-container">
@@ -14,7 +18,7 @@ const CtaSection = () => {
                     Your dream team is waiting.
                 </p>
                 <div className="cta-button-wrapper">
-                    <Link to="register" className="cta-button">
+                    <Link to={user ? "/create-startup" : "/login"} className="cta-button">
                         Get Started Now
                         <Rocket className="cta-rocket" />
                     </Link>

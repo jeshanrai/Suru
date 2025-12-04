@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react';
+import { GoogleLogin } from '@react-oauth/google';
 import { useNavigate, Link } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import './Auth.css';
@@ -7,7 +8,7 @@ const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
-    const { login } = useContext(AuthContext);
+    const { login, googleLogin } = useContext(AuthContext);
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
@@ -18,6 +19,19 @@ const Login = () => {
         } catch (err) {
             setError(err.response?.data?.message || 'Login failed');
         }
+    };
+
+    const handleGoogleSuccess = async (credentialResponse) => {
+        try {
+            await googleLogin(credentialResponse.credential);
+            navigate('/dashboard');
+        } catch (err) {
+            setError('Google login failed');
+        }
+    };
+
+    const handleGoogleError = () => {
+        setError('Google login failed');
     };
 
     return (
@@ -47,6 +61,13 @@ const Login = () => {
                     </div>
                     <button type="submit" className="btn btn-primary full-width">Login</button>
                 </form>
+                <div className="google-login-divider">OR</div>
+                <div className="google-login-container" style={{ marginTop: '0', display: 'flex', justifyContent: 'center' }}>
+                    <GoogleLogin
+                        onSuccess={handleGoogleSuccess}
+                        onError={handleGoogleError}
+                    />
+                </div>
                 <div className="auth-footer">
                     Don't have an account? <Link to="/register">Register</Link>
                 </div>

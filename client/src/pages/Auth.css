@@ -1,79 +1,420 @@
+/* Auth Container with Gradient Background */
 .auth-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 80vh;
-    padding: 2rem;
-    padding-top: 5rem !important;
+    height: 100vh;
+    padding: 1rem;
+    padding-top: 5rem;
+    /* background: linear-gradient(135deg,
+            hsl(195, 100%, 50%) 0%,
+            hsl(270, 80%, 60%) 50%,
+            hsl(220, 90%, 56%) 100%); */
+    background-size: 200% 200%;
+    animation: gradientShift 15s ease infinite;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Gradient Animation */
+@keyframes gradientShift {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* Floating Particles Effect (Optional Background Enhancement) */
+.auth-container::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image:
+        radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 20%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
+    animation: float 20s ease-in-out infinite;
+    pointer-events: none;
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-20px);
+    }
 }
 
 .container-page-container {
     margin-top: 5rem;
 }
 
+/* Auth Card with Glassmorphism */
 .auth-card {
     width: 100%;
-    max-width: 400px;
+    max-width: 440px;
+    max-height: 85vh;
+    overflow-y: auto;
     text-align: center;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 24px;
+    padding: 2.5rem 2rem;
+    box-shadow:
+        0 8px 32px 0 rgba(31, 38, 135, 0.37),
+        0 0 0 1px rgba(255, 255, 255, 0.18) inset;
+    animation: fadeInUp 0.6s ease-out;
+    position: relative;
+    z-index: 1;
 }
 
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Heading Styles */
 .auth-card h2 {
     margin-bottom: 0.5rem;
+    font-size: 2rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, hsl(195, 100%, 40%), hsl(270, 80%, 50%));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: -0.02em;
 }
 
 .auth-card p {
-    color: var(--text-light);
-    margin-bottom: 2rem;
+    color: hsl(220, 10%, 45%);
+    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+    font-weight: 400;
 }
 
+/* Form Group */
 .form-group {
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.1rem;
     text-align: left;
+    animation: slideIn 0.5s ease-out backwards;
+}
+
+.form-group:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.form-group:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.form-group:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+.form-group:nth-child(4) {
+    animation-delay: 0.4s;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
 }
 
 .form-group label {
     display: block;
-    margin-bottom: 0.5rem;
-    font-weight: 500;
-    font-size: 0.9rem;
+    margin-bottom: 0.4rem;
+    font-weight: 600;
+    font-size: 0.875rem;
+    color: hsl(220, 15%, 30%);
+    letter-spacing: 0.01em;
 }
 
+/* Enhanced Input Fields */
 .form-group input,
 .form-group select {
     width: 100%;
-    padding: 0.75rem;
-    border: 1px solid var(--border);
-    border-radius: var(--radius-md);
-    background-color: var(--bg-main);
-    transition: border-color 0.2s;
+    padding: 0.7rem 0.9rem;
+    border: 2px solid hsl(220, 15%, 85%);
+    border-radius: 12px;
+    background-color: hsl(0, 0%, 100%);
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
 }
 
 .form-group input:focus,
 .form-group select:focus {
-    border-color: var(--accent);
+    border-color: hsl(195, 100%, 50%);
     outline: none;
+    box-shadow:
+        0 0 0 4px hsla(195, 100%, 50%, 0.1),
+        0 4px 12px rgba(0, 0, 0, 0.08);
+    transform: translateY(-2px);
 }
 
+.form-group input:hover,
+.form-group select:hover {
+    border-color: hsl(220, 15%, 70%);
+}
+
+/* Button Styling */
 .full-width {
     width: 100%;
 }
 
+.btn-primary {
+    background: linear-gradient(135deg, hsl(195, 100%, 50%), hsl(220, 90%, 56%));
+    border: none;
+    color: white;
+    padding: 0.9rem 1.75rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(6, 182, 212, 0.4);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.5s;
+}
+
+.btn-primary:hover::before {
+    left: 100%;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(6, 182, 212, 0.5);
+}
+
+.btn-primary:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(6, 182, 212, 0.4);
+}
+
+/* Divider */
+.google-login-container {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.google-login-divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    margin: 1rem 0 0.75rem 0;
+    color: hsl(220, 10%, 60%);
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.google-login-divider::before,
+.google-login-divider::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid hsl(220, 15%, 85%);
+}
+
+.google-login-divider:not(:empty)::before {
+    margin-right: 1rem;
+}
+
+.google-login-divider:not(:empty)::after {
+    margin-left: 1rem;
+}
+
+/* Auth Footer */
 .auth-footer {
-    margin-top: 1.5rem;
+    margin-top: 1.1rem;
     font-size: 0.9rem;
-    color: var(--text-light);
+    color: hsl(220, 10%, 50%);
 }
 
 .auth-footer a {
-    color: var(--accent);
+    color: hsl(195, 100%, 45%);
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.auth-footer a:hover {
+    color: hsl(270, 80%, 50%);
+    text-decoration: underline;
+}
+
+/* Error Message */
+.error-message {
+    background: linear-gradient(135deg, hsl(0, 85%, 97%), hsl(0, 100%, 95%));
+    color: hsl(0, 70%, 45%);
+    padding: 0.8rem 1rem;
+    border-radius: 12px;
+    margin-bottom: 1.1rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+
+    .auth-card {
+        padding: 1.75rem 1.25rem;
+    }
+}
+
+/* Social Login Section */
+.social-login-section {
+    margin-bottom: 1.5rem;
+}
+
+.register-with-text {
+    font-size: 0.9rem;
+    color: hsl(220, 10%, 50%);
+    margin-bottom: 1rem;
     font-weight: 500;
 }
 
-.error-message {
-    background-color: #fef2f2;
-    color: var(--error);
-    padding: 0.75rem;
-    border-radius: var(--radius-md);
-    margin-bottom: 1.5rem;
+.social-buttons-container {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+.social-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid hsl(220, 15%, 85%);
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: hsl(220, 15%, 40%);
+}
+
+.social-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-color: hsl(220, 15%, 70%);
+    color: hsl(220, 15%, 20%);
+}
+
+.google-btn-wrapper {
+    /* Wrapper to handle Google button sizing if needed */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Divider */
+.divider-container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin: 1.5rem 0;
+}
+
+.divider-line {
+    flex: 1;
+    height: 1px;
+    background-color: hsl(220, 15%, 85%);
+}
+
+.divider-text {
+    padding: 0 1rem;
+    color: hsl(220, 10%, 60%);
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+/* Secondary Button (Continue with Email) */
+.btn-secondary {
+    background: white;
+    border: 2px solid hsl(220, 15%, 85%);
+    color: hsl(220, 15%, 40%);
+    padding: 0.8rem 1.75rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+    border-color: hsl(195, 100%, 50%);
+    color: hsl(195, 100%, 50%);
+    background: hsl(195, 100%, 98%);
+}
+
+/* Text Button (Cancel) */
+.btn-text {
+    background: none;
+    border: none;
+    color: hsl(220, 10%, 50%);
     font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    margin-top: 1rem;
+    text-decoration: underline;
+    transition: color 0.2s ease;
+}
+
+.btn-text:hover {
+    color: hsl(220, 15%, 30%);
+}
+
+/* Manual Form Animation */
+.manual-register-form {
+    animation: slideDownForm 0.4s ease-out;
+}
+
+@keyframes slideDownForm {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }

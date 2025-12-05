@@ -33,6 +33,12 @@ export const AuthProvider = ({ children }) => {
         setUser(data);
     };
 
+    const facebookLogin = async (accessToken, userID) => {
+        const { data } = await api.post('/auth/facebook', { accessToken, userID });
+        localStorage.setItem('userInfo', JSON.stringify(data));
+        setUser(data);
+    };
+
     const logout = () => {
         localStorage.removeItem('userInfo');
         setUser(null);
@@ -44,7 +50,7 @@ export const AuthProvider = ({ children }) => {
     };
 
     return (
-        <AuthContext.Provider value={{ user, login, register, googleLogin, logout, updateUser, loading }}>
+        <AuthContext.Provider value={{ user, login, register, googleLogin, facebookLogin, logout, updateUser, loading }}>
             {children}
         </AuthContext.Provider>
     );

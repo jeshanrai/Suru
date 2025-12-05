@@ -1,15 +1,16 @@
-/* Auth Container with Gradient Background */
+/* ==========================
+   Auth Container with Gradient Background
+   ========================== */
 .auth-container {
     display: flex;
     justify-content: center;
-    align-items: center;
-    height: 100vh;
-    padding: 1rem;
-    padding-top: 5rem;
-    /* background: linear-gradient(135deg,
-            hsl(195, 100%, 50%) 0%,
-            hsl(270, 80%, 60%) 50%,
-            hsl(220, 90%, 56%) 100%); */
+    align-items: flex-start;
+    /* changed from center to flex-start */
+    min-height: 100vh;
+    /* ensure it always covers full height */
+    padding: 5rem 1rem 1rem 1rem;
+    /* use padding-top for spacing */
+    background: #f5f5f5;
     background-size: 200% 200%;
     animation: gradientShift 15s ease infinite;
     position: relative;
@@ -31,20 +32,24 @@
     }
 }
 
-/* Floating Particles Effect (Optional Background Enhancement) */
+/* Floating Particles (fixed position) */
 .auth-container::before {
     content: '';
-    position: absolute;
+    position: fixed;
+    /* changed from absolute to fixed */
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     background-image:
         radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
         radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
         radial-gradient(circle at 40% 20%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
-    animation: float 20s ease-in-out infinite;
     pointer-events: none;
+    animation: float 20s ease-in-out infinite;
 }
 
+/* Float Animation */
 @keyframes float {
 
     0%,
@@ -57,16 +62,21 @@
     }
 }
 
+/* Container Page Spacing */
 .container-page-container {
     margin-top: 5rem;
 }
 
-/* Auth Card with Glassmorphism */
+
 .auth-card {
     width: 100%;
     max-width: 440px;
     max-height: 85vh;
-    overflow-y: auto;
+    /* optional, can be removed if you want fully flexible height */
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    /* hide overflow for smooth growth */
     text-align: center;
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(20px);
@@ -79,8 +89,11 @@
     animation: fadeInUp 0.6s ease-out;
     position: relative;
     z-index: 1;
+    margin-top: 2rem;
+    /* spacing from top */
 }
 
+/* Fade In Up Animation */
 @keyframes fadeInUp {
     from {
         opacity: 0;
@@ -93,7 +106,9 @@
     }
 }
 
-/* Heading Styles */
+/* ==========================
+   Heading Styles
+   ========================== */
 .auth-card h2 {
     margin-bottom: 0.5rem;
     font-size: 2rem;
@@ -112,7 +127,9 @@
     font-weight: 400;
 }
 
-/* Form Group */
+/* ==========================
+   Form Group
+   ========================== */
 .form-group {
     margin-bottom: 1.1rem;
     text-align: left;
@@ -156,7 +173,7 @@
     letter-spacing: 0.01em;
 }
 
-/* Enhanced Input Fields */
+/* Input Fields */
 .form-group input,
 .form-group select {
     width: 100%;
@@ -184,9 +201,19 @@
     border-color: hsl(220, 15%, 70%);
 }
 
-/* Button Styling */
+/* ==========================
+   Button Styling
+   ========================== */
 .full-width {
     width: 100%;
+}
+
+.auth-card .form-section {
+    overflow-y: auto;
+    max-height: calc(85vh - 6rem);
+    /* card max minus padding/heading/footer */
+    padding-right: 0.5rem;
+    /* for scrollbar space */
 }
 
 .btn-primary {
@@ -229,7 +256,9 @@
     box-shadow: 0 2px 8px rgba(6, 182, 212, 0.4);
 }
 
-/* Divider */
+/* ==========================
+   Divider
+   ========================== */
 .google-login-container {
     margin-top: 1rem;
     display: flex;
@@ -264,7 +293,9 @@
     margin-left: 1rem;
 }
 
-/* Auth Footer */
+/* ==========================
+   Auth Footer
+   ========================== */
 .auth-footer {
     margin-top: 1.1rem;
     font-size: 0.9rem;
@@ -283,7 +314,9 @@
     text-decoration: underline;
 }
 
-/* Error Message */
+/* ==========================
+   Error Message
+   ========================== */
 .error-message {
     background: linear-gradient(135deg, hsl(0, 85%, 97%), hsl(0, 100%, 95%));
     color: hsl(0, 70%, 45%);
@@ -292,13 +325,11 @@
     margin-bottom: 1.1rem;
     font-size: 0.9rem;
     font-weight: 500;
-
-    .auth-card {
-        padding: 1.75rem 1.25rem;
-    }
 }
 
-/* Social Login Section */
+/* ==========================
+   Social Login Section
+   ========================== */
 .social-login-section {
     margin-bottom: 1.5rem;
 }
@@ -339,13 +370,14 @@
 }
 
 .google-btn-wrapper {
-    /* Wrapper to handle Google button sizing if needed */
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-/* Divider */
+/* ==========================
+   Divider Container
+   ========================== */
 .divider-container {
     display: flex;
     align-items: center;
@@ -366,7 +398,9 @@
     font-weight: 600;
 }
 
-/* Secondary Button (Continue with Email) */
+/* ==========================
+   Secondary Button
+   ========================== */
 .btn-secondary {
     background: white;
     border: 2px solid hsl(220, 15%, 85%);
@@ -385,7 +419,9 @@
     background: hsl(195, 100%, 98%);
 }
 
-/* Text Button (Cancel) */
+/* ==========================
+   Text Button (Cancel)
+   ========================== */
 .btn-text {
     background: none;
     border: none;
@@ -402,7 +438,9 @@
     color: hsl(220, 15%, 30%);
 }
 
-/* Manual Form Animation */
+/* ==========================
+   Manual Form Animation
+   ========================== */
 .manual-register-form {
     animation: slideDownForm 0.4s ease-out;
 }

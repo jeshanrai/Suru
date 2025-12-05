@@ -11,6 +11,7 @@ import { SocketProvider } from './context/SocketContext';
 const Home = lazy(() => import('./pages/Home'));
 const Login = lazy(() => import('./pages/Login'));
 const Register = lazy(() => import('./pages/Register'));
+const EmailRegister = lazy(() => import('./pages/EmailRegister'));
 const StartupList = lazy(() => import('./pages/StartupList'));
 const StartupDetail = lazy(() => import('./pages/StartupDetail'));
 const Dashboard = lazy(() => import('./pages/Dashboard'));
@@ -40,6 +41,7 @@ function App() {
                   <Route path="/" element={<Home />} />
                   <Route path="/login" element={<Login />} />
                   <Route path="/register" element={<Register />} />
+                  <Route path="/register/email" element={<EmailRegister />} />
                   <Route path="/startups" element={<StartupList />} />
                   <Route path="/startups/create" element={<CreateStartup />} />
                   <Route path="/startups/:id" element={<StartupDetail />} />

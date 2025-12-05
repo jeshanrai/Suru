@@ -1,6 +1,7 @@
 const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 const { OAuth2Client } = require('google-auth-library');
+const axios = require('axios');
 
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
@@ -113,4 +114,48 @@ const googleAuth = async (req, res) => {
     }
 };
 
-module.exports = { registerUser, authUser, googleAuth };
+const facebookAuth = async (req, res) => {
+    const { accessToken, userID } = req.body;
+
+    try {
+        const url = `https://graph.facebook.com/v2.11/${userID}/?fields=id,name,email,picture&access_token=${accessToken}`;
+        const { data } = await axios.get(url);
+        const { email, name, picture } = data;
+
+        let user = await User.findOne({ email });
+
+        if (user) {
+            res.json({
+                _id: user._id,
+                name: user.name,
+                email: user.email,
+                role: user.role,
+                bio: user.bio,
+                skills: user.skills,
+                profilePicture: user.profilePicture,
+                portfolio: user.portfolio,
+                token: generateToken(user._id),
+            });
+        } else {
+            user = await User.create({
+                name,
+                email,
+                password: '',
+                profilePicture: picture.data.url,
+            });
+
+            res.status(201).json({
+                _id: user._id,
+                name: user.name,
+                email: user.email,
+                role: user.role,
+                token: generateToken(user._id),
+            });
+        }
+    } catch (error) {
+        console.error('Facebook Auth Error:', error);
+        res.status(401).json({ message: 'Facebook authentication failed' });
+    }
+};
+
+module.exports = { registerUser, authUser, googleAuth, facebookAuth };

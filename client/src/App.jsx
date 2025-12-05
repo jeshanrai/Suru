@@ -22,6 +22,7 @@ const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'));
 const TermsOfService = lazy(() => import('./pages/TermsOfService'));
 const AboutUs = lazy(() => import('./components/AboutUs'));
 const Careers = lazy(() => import('./pages/Careers'));
+const FirstTimeSetup = lazy(() => import('./pages/FirstTimeSetup'));
 
 function App() {
   // Log performance metrics on mount
@@ -42,6 +43,7 @@ function App() {
                   <Route path="/login" element={<Login />} />
                   <Route path="/register" element={<Register />} />
                   <Route path="/register/email" element={<EmailRegister />} />
+                  <Route path="/setup" element={<FirstTimeSetup />} />
                   <Route path="/startups" element={<StartupList />} />
                   <Route path="/startups/create" element={<CreateStartup />} />
                   <Route path="/startups/:id" element={<StartupDetail />} />

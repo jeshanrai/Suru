@@ -33,6 +33,7 @@ const registerUser = async (req, res) => {
             name: user.name,
             email: user.email,
             role: user.role,
+            isProfileComplete: user.isProfileComplete,
             token: generateToken(user._id),
         });
     } else {
@@ -55,6 +56,7 @@ const authUser = async (req, res) => {
             skills: user.skills,
             profilePicture: user.profilePicture,
             portfolio: user.portfolio,
+            isProfileComplete: user.isProfileComplete,
             token: generateToken(user._id),
         });
     } else {
@@ -87,6 +89,7 @@ const googleAuth = async (req, res) => {
                 skills: user.skills,
                 profilePicture: user.profilePicture,
                 portfolio: user.portfolio,
+                isProfileComplete: user.isProfileComplete,
                 token: generateToken(user._id),
             });
         } else {
@@ -105,6 +108,7 @@ const googleAuth = async (req, res) => {
                 name: user.name,
                 email: user.email,
                 role: user.role,
+                isProfileComplete: user.isProfileComplete,
                 token: generateToken(user._id),
             });
         }
@@ -134,6 +138,7 @@ const facebookAuth = async (req, res) => {
                 skills: user.skills,
                 profilePicture: user.profilePicture,
                 portfolio: user.portfolio,
+                isProfileComplete: user.isProfileComplete,
                 token: generateToken(user._id),
             });
         } else {
@@ -149,6 +154,7 @@ const facebookAuth = async (req, res) => {
                 name: user.name,
                 email: user.email,
                 role: user.role,
+                isProfileComplete: user.isProfileComplete,
                 token: generateToken(user._id),
             });
         }

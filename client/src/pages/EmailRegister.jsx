@@ -16,7 +16,8 @@ const EmailRegister = () => {
         e.preventDefault();
         try {
             await register(name, email, password, role);
-            navigate('/dashboard');
+            // New users always need to complete setup
+            navigate('/setup');
         } catch (err) {
             setError(err.response?.data?.message || 'Registration failed');
         }

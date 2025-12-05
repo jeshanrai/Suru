@@ -1,0 +1,480 @@
+/* First-Time Setup Page - Facebook Style */
+
+.setup-container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6rem 1rem 2rem 1rem;
+    background: #f0f2f5;
+}
+
+.setup-card {
+    background: white;
+    border-radius: 8px;
+    padding: 2.5rem;
+    max-width: 700px;
+    width: 100%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 0.4s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Header */
+.setup-header {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid #e4e6eb;
+}
+
+.setup-header h1 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #1c1e21;
+    margin-bottom: 0.5rem;
+}
+
+.setup-header p {
+    color: #65676b;
+    font-size: 0.95rem;
+}
+
+/* Progress Steps */
+.progress-steps {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 2.5rem;
+    padding: 0 1rem;
+}
+
+.step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.step-number {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #e4e6eb;
+    color: #8a8d91;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+}
+
+.step.active .step-number {
+    background: #1877f2;
+    color: white;
+}
+
+.step.completed .step-number {
+    background: #42b72a;
+    color: white;
+}
+
+.step-label {
+    font-size: 0.8rem;
+    color: #65676b;
+    font-weight: 500;
+}
+
+.step.active .step-label {
+    color: #1877f2;
+    font-weight: 600;
+}
+
+.step-line {
+    flex: 1;
+    height: 2px;
+    background: #e4e6eb;
+    margin: 0 0.5rem;
+    max-width: 80px;
+}
+
+/* Step Content */
+.step-content {
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.step-content h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1c1e21;
+    margin-bottom: 0.5rem;
+    text-align: center;
+}
+
+.step-description {
+    text-align: center;
+    color: #65676b;
+    font-size: 0.95rem;
+    margin-bottom: 2rem;
+}
+
+/* Profile Upload - Centered */
+.profile-upload-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    margin: 2rem 0;
+}
+
+.profile-preview-large {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid #e4e6eb;
+    background: #f0f2f5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.profile-preview-large:hover {
+    border-color: #1877f2;
+}
+
+.profile-preview-large img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.preview-placeholder-large {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #8a8d91;
+}
+
+.upload-btn-large {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    background: #1877f2;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 0.95rem;
+}
+
+.upload-btn-large:hover {
+    background: #166fe5;
+}
+
+/* Bio Input */
+.bio-input {
+    width: 100%;
+    padding: 0.875rem;
+    border: 1px solid #ccd0d5;
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 0.95rem;
+    resize: vertical;
+    transition: all 0.2s ease;
+    background: white;
+    margin-bottom: 0.5rem;
+}
+
+.bio-input:focus {
+    outline: none;
+    border-color: #1877f2;
+    box-shadow: 0 0 0 2px rgba(24, 119, 242, 0.2);
+}
+
+.char-counter {
+    text-align: right;
+    font-size: 0.85rem;
+    color: #8a8d91;
+    margin-bottom: 1.5rem;
+}
+
+/* Skills Input */
+.skills-input-wrapper {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.skill-input {
+    flex: 1;
+    padding: 0.75rem;
+    border: 1px solid #ccd0d5;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    transition: all 0.2s ease;
+}
+
+.skill-input:focus {
+    outline: none;
+    border-color: #1877f2;
+    box-shadow: 0 0 0 2px rgba(24, 119, 242, 0.2);
+}
+
+.add-skill-btn-inline {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #1877f2;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.add-skill-btn-inline:hover:not(:disabled) {
+    background: #166fe5;
+}
+
+.add-skill-btn-inline:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.skills-tags-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    min-height: 50px;
+    margin-bottom: 1rem;
+}
+
+.skill-tag-modern {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.875rem;
+    background: #e7f3ff;
+    border: 1px solid #1877f2;
+    color: #1877f2;
+    border-radius: 20px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    animation: popIn 0.2s ease;
+}
+
+@keyframes popIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.remove-skill-modern {
+    background: none;
+    border: none;
+    color: #1877f2;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    transition: all 0.2s ease;
+}
+
+.remove-skill-modern:hover {
+    color: #dc2626;
+    transform: scale(1.2);
+}
+
+.hint-text-center {
+    text-align: center;
+    font-size: 0.875rem;
+    color: #8a8d91;
+    font-style: italic;
+    margin-bottom: 1rem;
+}
+
+/* Step Actions */
+.step-actions {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: center;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #e4e6eb;
+}
+
+.btn-back,
+.btn-skip,
+.btn-next,
+.btn-finish {
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.btn-back {
+    background: #e4e6eb;
+    color: #1c1e21;
+}
+
+.btn-back:hover {
+    background: #d8dadf;
+}
+
+.btn-skip {
+    background: transparent;
+    color: #1877f2;
+    border: 1px solid #1877f2;
+}
+
+.btn-skip:hover {
+    background: #e7f3ff;
+}
+
+.btn-next,
+.btn-finish {
+    background: #1877f2;
+    color: white;
+}
+
+.btn-next:hover,
+.btn-finish:hover:not(:disabled) {
+    background: #166fe5;
+}
+
+.btn-finish:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Error Message */
+.error-message {
+    background: #ffebe9;
+    border: 1px solid #f02849;
+    color: #c41e3a;
+    padding: 0.875rem;
+    border-radius: 6px;
+    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .setup-container {
+        padding: 5rem 1rem 1rem 1rem;
+    }
+
+    .setup-card {
+        padding: 2rem 1.5rem;
+    }
+
+    .setup-header h1 {
+        font-size: 1.5rem;
+    }
+
+    .progress-steps {
+        padding: 0;
+    }
+
+    .step-number {
+        width: 36px;
+        height: 36px;
+        font-size: 0.875rem;
+    }
+
+    .step-label {
+        font-size: 0.75rem;
+    }
+
+    .step-line {
+        max-width: 40px;
+    }
+
+    .profile-preview-large {
+        width: 150px;
+        height: 150px;
+    }
+
+    .step-content h2 {
+        font-size: 1.25rem;
+    }
+
+    .step-actions {
+        flex-wrap: wrap;
+    }
+
+    .btn-back,
+    .btn-skip,
+    .btn-next,
+    .btn-finish {
+        flex: 1;
+        min-width: 100px;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .setup-card {
+        padding: 1.5rem 1rem;
+    }
+
+    .setup-header h1 {
+        font-size: 1.25rem;
+    }
+
+    .step-actions {
+        flex-direction: column;
+    }
+
+    .btn-back,
+    .btn-skip,
+    .btn-next,
+    .btn-finish {
+        width: 100%;
+    }
+}

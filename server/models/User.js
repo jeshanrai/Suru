@@ -10,6 +10,7 @@ const userSchema = mongoose.Schema({
     skills: [{ type: String, default: [] }],
     profilePicture: { type: String, default: '' },
     portfolio: [{ title: { type: String, default: '' }, link: { type: String, default: '' } }],
+    isProfileComplete: { type: Boolean, default: false },
 }, { timestamps: true });
 
 // Compare password

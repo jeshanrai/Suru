@@ -81,4 +81,50 @@ const updateUserProfile = async (req, res) => {
     }
 };
 
-module.exports = { updateUserProfile, getUserById };
+// @desc    Complete user profile (first-time setup)
+// @route   POST /api/users/complete-profile
+// @access  Private
+const completeProfile = async (req, res) => {
+    try {
+        const user = await User.findById(req.user._id);
+
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        const { profilePicture, bio, skills } = req.body;
+
+        // Validate required fields
+        if (!bio || !skills || skills.length === 0) {
+            return res.status(400).json({ message: 'Bio and at least one skill are required' });
+        }
+
+        // Update profile fields
+        if (typeof profilePicture === 'string' && profilePicture) {
+            user.profilePicture = profilePicture;
+        }
+        user.bio = bio;
+        user.skills = Array.isArray(skills) ? skills.filter(s => typeof s === 'string') : [];
+        user.isProfileComplete = true;
+
+        const updatedUser = await user.save();
+
+        res.json({
+            _id: updatedUser._id,
+            name: updatedUser.name,
+            email: updatedUser.email,
+            role: updatedUser.role,
+            bio: updatedUser.bio,
+            skills: updatedUser.skills,
+            portfolio: updatedUser.portfolio,
+            profilePicture: updatedUser.profilePicture,
+            isProfileComplete: updatedUser.isProfileComplete
+        });
+
+    } catch (error) {
+        console.error('COMPLETE PROFILE ERROR:', error);
+        res.status(500).json({ message: 'Server error', error: error.message });
+    }
+};
+
+module.exports = { updateUserProfile, getUserById, completeProfile };

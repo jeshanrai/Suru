@@ -19,24 +19,28 @@ export const AuthProvider = ({ children }) => {
         const { data } = await api.post('/auth/login', { email, password });
         localStorage.setItem('userInfo', JSON.stringify(data));
         setUser(data);
+        return data;
     };
 
     const register = async (name, email, password, role) => {
         const { data } = await api.post('/auth/register', { name, email, password, role });
         localStorage.setItem('userInfo', JSON.stringify(data));
         setUser(data);
+        return data;
     };
 
     const googleLogin = async (token) => {
         const { data } = await api.post('/auth/google', { token });
         localStorage.setItem('userInfo', JSON.stringify(data));
         setUser(data);
+        return data;
     };
 
     const facebookLogin = async (accessToken, userID) => {
         const { data } = await api.post('/auth/facebook', { accessToken, userID });
         localStorage.setItem('userInfo', JSON.stringify(data));
         setUser(data);
+        return data;
     };
 
     const logout = () => {

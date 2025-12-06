@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../utils/api';
-import './Auth.css'; // Reuse auth styles for form
+import './CreateStartup.css';
 
 const CreateStartup = () => {
     const navigate = useNavigate();
@@ -34,12 +34,12 @@ const CreateStartup = () => {
     };
 
     return (
-        <div className="container-page-container">
-            <div className="auth-card card" style={{ maxWidth: '600px', margin: '0 auto' }}>
+        <div className="create-startup-container">
+            <div className="create-startup-card">
                 <h2>Post Your Startup Idea</h2>
-                {error && <div className="error-message">{error}</div>}
+                {error && <div className="create-startup-error">{error}</div>}
                 <form onSubmit={handleSubmit}>
-                    <div className="form-group">
+                    <div className="create-startup-form-group">
                         <label>Startup Title</label>
                         <input
                             type="text"
@@ -49,7 +49,7 @@ const CreateStartup = () => {
                             required
                         />
                     </div>
-                    <div className="form-group">
+                    <div className="create-startup-form-group">
                         <label>Category</label>
                         <select name="category" value={formData.category} onChange={handleChange}>
                             <option value="Tech">Tech</option>
@@ -61,7 +61,7 @@ const CreateStartup = () => {
                             <option value="Real Estate">Real Estate</option>
                         </select>
                     </div>
-                    <div className="form-group">
+                    <div className="create-startup-form-group">
                         <label>Description</label>
                         <textarea
                             name="description"
@@ -69,10 +69,9 @@ const CreateStartup = () => {
                             onChange={handleChange}
                             required
                             rows="5"
-                            style={{ width: '100%', padding: '0.75rem', border: '1px solid var(--border)', borderRadius: 'var(--radius-md)' }}
                         />
                     </div>
-                    <div className="form-group">
+                    <div className="create-startup-form-group">
                         <label>Status</label>
                         <select name="status" value={formData.status} onChange={handleChange}>
                             <option value="Hiring">Hiring</option>
@@ -81,7 +80,7 @@ const CreateStartup = () => {
                             <option value="Open">Open</option>
                         </select>
                     </div>
-                    <div className="form-group">
+                    <div className="create-startup-form-group">
                         <label>Location</label>
                         <input
                             type="text"
@@ -91,7 +90,7 @@ const CreateStartup = () => {
                             placeholder="e.g. New York or Remote"
                         />
                     </div>
-                    <div className="form-group">
+                    <div className="create-startup-form-group">
                         <label>Skills Required (comma separated)</label>
                         <input
                             type="text"
@@ -101,7 +100,7 @@ const CreateStartup = () => {
                             placeholder="e.g. React, Marketing, Sales"
                         />
                     </div>
-                    <button type="submit" className="btn btn-primary full-width">Post Startup</button>
+                    <button type="submit" className="create-startup-btn">Post Startup</button>
                 </form>
             </div>
         </div>

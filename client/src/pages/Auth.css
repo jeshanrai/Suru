@@ -113,7 +113,8 @@
     margin-bottom: 0.5rem;
     font-size: 2rem;
     font-weight: 800;
-    background: linear-gradient(135deg, hsl(195, 100%, 40%), hsl(270, 80%, 50%));
+    background: linear-gradient(135deg, hsl(205, 90%, 70%), hsl(190, 80%, 65%));
+
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;

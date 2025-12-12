@@ -59,11 +59,20 @@
 }
 
 .loading,
+.loading-more,
+.no-more-results,
 .no-results {
     text-align: center;
     padding: 4rem;
     color: var(--text-light);
 }
+
+.loading-more,
+.no-more-results {
+    padding: 2rem;
+    font-size: 0.95rem;
+}
+
 
 /* Tablet and Desktop Responsive */
 @media (min-width: 768px) {

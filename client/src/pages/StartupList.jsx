@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import api from '../utils/api';
 import StartupCard from '../components/StartupCard';
 import { Search, Filter } from 'lucide-react';
@@ -14,31 +14,71 @@ const Loading = () => (
 const StartupList = () => {
     const [startups, setStartups] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [loadingMore, setLoadingMore] = useState(false);
+    const [page, setPage] = useState(1);
+    const [hasMore, setHasMore] = useState(true);
     const [filters, setFilters] = useState({
         search: '',
         category: '',
         location: ''
     });
 
+    const observer = useRef();
+    const lastStartupElementRef = useCallback(node => {
+        if (loading || loadingMore) return;
+        if (observer.current) observer.current.disconnect();
+        observer.current = new IntersectionObserver(entries => {
+            if (entries[0].isIntersecting && hasMore) {
+                setPage(prevPage => prevPage + 1);
+            }
+        });
+        if (node) observer.current.observe(node);
+    }, [loading, loadingMore, hasMore]);
+
     useEffect(() => {
-        fetchStartups();
+        // Reset to page 1 when filters change
+        setPage(1);
+        setStartups([]);
+        setHasMore(true);
     }, [filters]);
 
+    useEffect(() => {
+        fetchStartups();
+    }, [page, filters]);
+
     const fetchStartups = async () => {
-        setLoading(true);
+        if (page === 1) {
+            setLoading(true);
+        } else {
+            setLoadingMore(true);
+        }
+
         try {
             const params = new URLSearchParams();
+            params.append('page', page);
+            params.append('limit', 9);
+
             if (filters.search) params.append('search', filters.search);
             if (filters.category) params.append('category', filters.category);
             if (filters.location) params.append('location', filters.location);
 
             const { data } = await api.get(`/startups?${params.toString()}`);
-            setStartups(data);
+
+            if (page === 1) {
+                setStartups(data.startups);
+            } else {
+                setStartups(prev => [...prev, ...data.startups]);
+            }
+
+            setHasMore(data.pagination.hasMore);
         } catch (error) {
             console.error('Error fetching startups:', error);
-            setStartups([]);
+            if (page === 1) {
+                setStartups([]);
+            }
         } finally {
             setLoading(false);
+            setLoadingMore(false);
         }
     };
 
@@ -81,11 +121,31 @@ const StartupList = () => {
             {loading ? (
                 <Loading />
             ) : startups.length > 0 ? (
-                <div className="startups-grid">
-                    {startups.map((startup) => (
-                        <StartupCard key={startup._id} startup={startup} />
-                    ))}
-                </div>
+                <>
+                    <div className="startups-grid">
+                        {startups.map((startup, index) => {
+                            if (startups.length === index + 1) {
+                                return (
+                                    <div ref={lastStartupElementRef} key={startup._id}>
+                                        <StartupCard startup={startup} />
+                                    </div>
+                                );
+                            } else {
+                                return <StartupCard key={startup._id} startup={startup} />;
+                            }
+                        })}
+                    </div>
+                    {loadingMore && (
+                        <div className="loading-more">
+                            <p>Loading more startups...</p>
+                        </div>
+                    )}
+                    {!hasMore && startups.length > 0 && (
+                        <div className="no-more-results">
+                            <p>You've reached the end!</p>
+                        </div>
+                    )}
+                </>
             ) : (
                 <div className="no-results">
                     <h3>No startups found</h3>
@@ -97,3 +157,4 @@ const StartupList = () => {
 };
 
 export default StartupList;
+

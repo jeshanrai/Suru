@@ -27,7 +27,7 @@ const createStartup = async (req, res) => {
 // @route   GET /api/startups
 // @access  Public
 const getStartups = async (req, res) => {
-    const { category, location, search, founder } = req.query;
+    const { category, location, search, founder, page = 1, limit = 9 } = req.query;
     let query = {};
 
     if (category) {
@@ -46,8 +46,31 @@ const getStartups = async (req, res) => {
         query.founder = founder;
     }
 
-    const startups = await Startup.find(query).populate('founder', 'name email profilePicture');
-    res.json(startups);
+    // Convert to numbers
+    const pageNum = parseInt(page);
+    const limitNum = parseInt(limit);
+    const skip = (pageNum - 1) * limitNum;
+
+    // Get total count for pagination metadata
+    const total = await Startup.countDocuments(query);
+
+    // Fetch startups with pagination
+    const startups = await Startup.find(query)
+        .populate('founder', 'name email profilePicture')
+        .skip(skip)
+        .limit(limitNum)
+        .sort({ createdAt: -1 }); // Sort by newest first
+
+    res.json({
+        startups,
+        pagination: {
+            total,
+            page: pageNum,
+            limit: limitNum,
+            totalPages: Math.ceil(total / limitNum),
+            hasMore: skip + startups.length < total
+        }
+    });
 };
 
 // @desc    Get startup by ID
